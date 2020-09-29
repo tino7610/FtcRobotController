@@ -56,8 +56,10 @@ public class TestTeleOp extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+    private DcMotor fLDrive = null;
+    private DcMotor fRDrive = null;
+    private DcMotor bLDrive = null;
+    private DcMotor bRDrive = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -69,13 +71,10 @@ public class TestTeleOp extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        fLDrive  = hardwareMap.get(DcMotor.class, "fL_drive");
+        fRDrive = hardwareMap.get(DcMotor.class, "fR_drive");
+        bLDrive  = hardwareMap.get(DcMotor.class, "bL_drive");
+        bRDrive = hardwareMap.get(DcMotor.class, "bR_drive");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -102,18 +101,23 @@ public class TestTeleOp extends OpMode
     @Override
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
-        double leftPower;
-        double rightPower;
+        double fLPower;
+        double fRPower;
+        double bLPower;
+        double bRPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        double x = gamepad1.left_stick_x;
+        double y = -gamepad1.left_stick_y;
+
+        fLPower   = Range.clip(y + x, -1.0, 1.0) ;
+        fRPower   = Range.clip(y - x, -1.0, 1.0) ;
+        bLPower   = Range.clip(y - x, -1.0, 1.0) ;
+        bRPower   = Range.clip(y + x, -1.0, 1.0) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
@@ -121,12 +125,15 @@ public class TestTeleOp extends OpMode
         // rightPower = -gamepad1.right_stick_y ;
 
         // Send calculated power to wheels
-        leftDrive.setPower(leftPower);
-        rightDrive.setPower(rightPower);
+        fLDrive.setPower(fLPower);
+        fRDrive.setPower(fRPower);
+        bLDrive.setPower(bLPower);
+        bRDrive.setPower(bRPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
+                fLPower, fRPower, bLPower, bRPower);
     }
 
     /*
