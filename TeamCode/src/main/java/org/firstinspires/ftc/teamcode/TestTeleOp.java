@@ -71,10 +71,10 @@ public class TestTeleOp extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        fLDrive  = hardwareMap.get(DcMotor.class, "fL_drive");
-        fRDrive = hardwareMap.get(DcMotor.class, "fR_drive");
-        bLDrive  = hardwareMap.get(DcMotor.class, "bL_drive");
-        bRDrive = hardwareMap.get(DcMotor.class, "bR_drive");
+        fLDrive  = hardwareMap.get(DcMotor.class, "LeftFront");
+        fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
+        bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
+        bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
