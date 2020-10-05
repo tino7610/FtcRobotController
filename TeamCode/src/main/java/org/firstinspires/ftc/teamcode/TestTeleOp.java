@@ -76,6 +76,11 @@ public class TestTeleOp extends OpMode
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
 
+        fLDrive.setDirection(DcMotor.Direction.FORWARD);
+        fRDrive.setDirection(DcMotor.Direction.REVERSE);
+        bLDrive.setDirection(DcMotor.Direction.FORWARD);
+        bRDrive.setDirection(DcMotor.Direction.REVERSE);
+
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
