@@ -113,11 +113,12 @@ public class TestTeleOp extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
         double x = gamepad1.left_stick_x;
         double y = -gamepad1.left_stick_y;
+        double r = gamepad1.right_stick_x;
 
-        fLPower   = Range.clip(y + x, -1.0, 1.0) ;
-        fRPower   = Range.clip(y - x, -1.0, 1.0) ;
-        bLPower   = Range.clip(y - x, -1.0, 1.0) ;
-        bRPower   = Range.clip(y + x, -1.0, 1.0) ;
+        fLPower   = Range.clip(y + x + r, -1.0, 1.0) ;
+        fRPower   = Range.clip(y - x - r, -1.0, 1.0) ;
+        bLPower   = Range.clip(y - x + r, -1.0, 1.0) ;
+        bRPower   = Range.clip(y + x - r, -1.0, 1.0) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
