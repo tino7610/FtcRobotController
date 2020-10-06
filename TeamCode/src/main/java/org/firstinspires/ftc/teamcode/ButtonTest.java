@@ -128,9 +128,18 @@ public class ButtonTest extends OpMode
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
+        // rightPower = -gamepad1.right_stick_y ;*/
 
-        // Send calculated power to wheels
+        if(gamepad1.a)
+            fLPower = 1.0 ;
+        if(gamepad1.b)
+            fLPower = 1.0 ;
+        if(gamepad1.x)
+            fLPower = 1.0 ;
+        if(gamepad1.y)
+            fLPower = 1.0;
+
+        //Send calculated power to wheels
         fLDrive.setPower(fLPower);
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
@@ -139,7 +148,10 @@ public class ButtonTest extends OpMode
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
-                fLPower, fRPower, bLPower, bRPower);*/
+                fLPower, fRPower, bLPower, bRPower);
+
+
+
     }
 
     /*
