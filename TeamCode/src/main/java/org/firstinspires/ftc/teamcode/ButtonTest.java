@@ -106,10 +106,10 @@ public class ButtonTest extends OpMode
     @Override
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
-        double fLPower;
-        double fRPower;
-        double bLPower;
-        double bRPower;
+        double fLPower = 0;
+        double fRPower = 0;
+        double bLPower = 0;
+        double bRPower = 0;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -131,13 +131,13 @@ public class ButtonTest extends OpMode
         // rightPower = -gamepad1.right_stick_y ;*/
 
         if(gamepad1.a)
-            fLPower = 1.0 ;
+            fLPower = 0.5 ;
         if(gamepad1.b)
-            fLPower = 1.0 ;
+            fRPower = 0.5 ;
         if(gamepad1.x)
-            fLPower = 1.0 ;
+            bLPower = 0.5 ;
         if(gamepad1.y)
-            fLPower = 1.0;
+            bRPower = 0.5;
 
         //Send calculated power to wheels
         fLDrive.setPower(fLPower);
