@@ -33,8 +33,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.internal.android.dx.cf.direct.DirectClassFile;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -52,14 +55,14 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
 @Disabled
-public class ButtonTest extends OpMode
+public class TestInit extends OpMode
 {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor fLDrive = null;
-    private DcMotor fRDrive = null;
-    private DcMotor bLDrive = null;
-    private DcMotor bRDrive = null;
+    //private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor leftMotorFront = null;
+    private DcMotor leftMotorBack = null;
+    private DcMotor rightMotorFront = null;
+    private DcMotor rightMotorBack = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -71,15 +74,26 @@ public class ButtonTest extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        fLDrive  = hardwareMap.get(DcMotor.class, "LeftFront");
-        fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
-        bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
-        bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
+        leftMotorFront  = hardwareMap.get(DcMotor.class, "LeftFront");
+        leftMotorBack = hardwareMap.get(DcMotor.class, "LeftRear");
+        rightMotorFront = hardwareMap.get(DcMotor.class, "RightFront");
+        rightMotorBack = hardwareMap.get(DcMotor.class, "RightRear");
 
-        fLDrive.setDirection(DcMotor.Direction.FORWARD);
-        fRDrive.setDirection(DcMotor.Direction.REVERSE);
-        bLDrive.setDirection(DcMotor.Direction.FORWARD);
-        bRDrive.setDirection(DcMotor.Direction.REVERSE);
+        // Most robots need the motor on one side to be reversed to drive forward
+        // Reverse the motor that runs backwards when connected directly to the battery
+
+        // Check the FORWARD/REVERSE motions for wheels
+        leftMotorFront.setDirection(DcMotor.Direction.FORWARD);
+        leftMotorBack.setDirection(DcMotor.Direction.FORWARD);
+        rightMotorFront.setDirection(DcMotor.Direction.REVERSE);
+        rightMotorBack.setDirection(DcMotor.Direction.REVERSE);
+
+        //Set power of motors to 0
+        leftMotorFront.setPower(0);
+        leftMotorBack.setPower(0);
+        rightMotorFront.setPower(0);
+        rightMotorBack.setPower(0);
+
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -95,10 +109,10 @@ public class ButtonTest extends OpMode
     /*
      * Code to run ONCE when the driver hits PLAY
      */
-    @Override
-    public void start() {
-        runtime.reset();
-    }
+    //@Override
+   //public void start() {
+        //runtime.reset();
+    //}
 
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -106,52 +120,37 @@ public class ButtonTest extends OpMode
     @Override
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
-        double fLPower = 0;
-        double fRPower = 0;
-        double bLPower = 0;
-        double bRPower = 0;
+        double leftMotorFrontPower;
+        double leftMotorBackPower ;
+        double rightMotorFrontPower;
+        double rightMotorBackPower ;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
-/*
+
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        double x = gamepad1.left_stick_x;
         double y = -gamepad1.left_stick_y;
-        double r = gamepad1.right_stick_x;
-
-        fLPower   = Range.clip(y + x + r, -1.0, 1.0) ;
-        fRPower   = Range.clip(y - x - r, -1.0, 1.0) ;
-        bLPower   = Range.clip(y - x + r, -1.0, 1.0) ;
-        bRPower   = Range.clip(y + x - r, -1.0, 1.0) ;
+        double x  =  gamepad1.right_stick_x;
+        leftMotorFrontPower    = Range.clip(y + x, -1.0, 1.0) ;
+        leftMotorBackPower   = Range.clip(y - x, -1.0, 1.0) ;
+        rightMotorFrontPower = Range.clip(y + x, -1.0, 1.0) ;
+        rightMotorBackPower = Range.clip(y - x, -1.0, 1.0) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;*/
+        // rightPower = -gamepad1.right_stick_y ;
 
-        if(gamepad1.a)
-            fLPower = 0.5 ;
-        if(gamepad1.b)
-            fRPower = 0.5 ;
-        if(gamepad1.x)
-            bLPower = 0.5 ;
-        if(gamepad1.y)
-            bRPower = 0.5;
-
-        //Send calculated power to wheels
-        fLDrive.setPower(fLPower);
-        fRDrive.setPower(fRPower);
-        bLDrive.setPower(bLPower);
-        bRDrive.setPower(bRPower);
+        // Send calculated power to wheels
+        leftMotorFront.setPower(leftMotorFrontPower);
+        leftMotorBack.setPower(leftMotorBackPower);
+        rightMotorFront.setPower(rightMotorFrontPower);
+        rightMotorBack.setPower(rightMotorBackPower);
 
         // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
-                fLPower, fRPower, bLPower, bRPower);
-
-
-
+        //telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("Motors", "LeftFront (%.2f), LeftRear (%.2f)", leftMotorFrontPower, leftMotorBackPower,rightMotorFrontPower,rightMotorBackPower);
     }
 
     /*
