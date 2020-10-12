@@ -56,8 +56,11 @@ public class TestAutonomous extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+    private DcMotor fLDrive = null;
+    private DcMotor fRDrive = null;
+    private DcMotor bLDrive = null;
+    private DcMotor bRDrive = null;
+    private DcMotor intake = null;
 
     @Override
     public void runOpMode() {
@@ -67,48 +70,36 @@ public class TestAutonomous extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        fLDrive  = hardwareMap.get(DcMotor.class, "LeftFront");
+        fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
+        bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
+        bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        fLDrive.setDirection(DcMotor.Direction.FORWARD);
+        fRDrive.setDirection(DcMotor.Direction.REVERSE);
+        bLDrive.setDirection(DcMotor.Direction.FORWARD);
+        bRDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
         // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
 
-            // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower;
-            double rightPower;
+        // Setup a variable for each drive wheel to save power level for telemetry
+        double fLPower = 0;
+        double fRPower = 0;
+        double bLPower = 0;
+        double bRPower = 0;
 
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
+        //STUFF HERE. IDK
 
-            // POV Mode uses left stick to go forward, and right stick to turn.
-            // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        // Show the elapsed game time and wheel power.
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
+                fLPower, fRPower, bLPower, bRPower);
 
-            // Tank Mode uses one stick to control each wheel.
-            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
-            // rightPower = -gamepad1.right_stick_y ;
-
-            // Send calculated power to wheels
-            leftDrive.setPower(leftPower);
-            rightDrive.setPower(rightPower);
-
-            // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.update();
-        }
     }
 }
