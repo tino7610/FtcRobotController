@@ -130,10 +130,10 @@ public class TestTeleOp extends OpMode
             inPower = 0.0;
         }
 
-        fLPower   = Range.clip(y + x + r, -1.0, 1.0) ;
-        fRPower   = Range.clip(y - x - r, -1.0, 1.0) ;
-        bLPower   = Range.clip(y - x + r, -1.0, 1.0) ;
-        bRPower   = Range.clip(y + x - r, -1.0, 1.0) ;
+        fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
+        fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
+        bLPower   = Range.clip(y - x + r, -0.5, 0.5) ;
+        bRPower   = Range.clip(y + x - r, -0.5, 0.5) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
