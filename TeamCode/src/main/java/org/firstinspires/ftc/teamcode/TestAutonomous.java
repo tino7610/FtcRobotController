@@ -88,18 +88,41 @@ public class TestAutonomous extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
 
-        // Setup a variable for each drive wheel to save power level for telemetry
-        double fLPower = 0;
-        double fRPower = 0;
-        double bLPower = 0;
-        double bRPower = 0;
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        //STUFF HERE. IDK
+        fLDrive.setTargetPosition(2000);
+        fRDrive.setTargetPosition(2000);
+        bLDrive.setTargetPosition(2000);
+        bRDrive.setTargetPosition(2000);
 
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
-                fLPower, fRPower, bLPower, bRPower);
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 }
