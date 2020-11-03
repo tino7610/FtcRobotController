@@ -86,29 +86,26 @@ public class MotorTest extends LinearOpMode {
         runtime.reset();
 
         // run until the end of the match (driver presses STOP)
-       double fLPower;
-       double fRPower;
-       double bLPower;
-       double bRPower;
-       double time;
 
         fLDrive.setPower(1.0);
-        time = getRuntime();
         sleep(2000);
         fLDrive.setPower(0.0);
 
+        sleep(1000);
+
         fRDrive.setPower(1.0);
-        time = getRuntime();
         sleep(2000);
         fRDrive.setPower(0.0);
 
+        sleep(1000);
+
         bLDrive.setPower(1.0);
-        time = getRuntime();
         sleep(2000);
         bLDrive.setPower(0.0);
 
+        sleep(1000);
+
         bRDrive.setPower(1.0);
-        time = getRuntime();
         sleep(2000);
         bRDrive.setPower(0.0);
 
