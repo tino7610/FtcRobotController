@@ -76,10 +76,10 @@ public class ButtonTest extends OpMode
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
 
-        fLDrive.setDirection(DcMotor.Direction.FORWARD);
-        fRDrive.setDirection(DcMotor.Direction.REVERSE);
-        bLDrive.setDirection(DcMotor.Direction.FORWARD);
-        bRDrive.setDirection(DcMotor.Direction.REVERSE);
+        fLDrive.setDirection(DcMotor.Direction.REVERSE);
+        fRDrive.setDirection(DcMotor.Direction.FORWARD);
+        bLDrive.setDirection(DcMotor.Direction.REVERSE);
+        bRDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -130,10 +130,8 @@ public class ButtonTest extends OpMode
         // leftPower  = -gamepad1.left_stick_y ;
         // rightPower = -gamepad1.right_stick_y ;*/
 
-        if(gamepad1.a)
-            fLPower = 0.5 ;
-        if(gamepad1.b)
-            fRPower = 0.5 ;
+        if(gamepad1.a) fLPower = 0.5 ;
+        if(gamepad1.b) fRPower = 0.5 ;
         if(gamepad1.x)
             bLPower = 0.5 ;
         if(gamepad1.y)

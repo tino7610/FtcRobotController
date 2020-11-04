@@ -31,7 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -50,7 +50,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@Autonomous(name="MotorTest", group="Linear Opmode")
 //@Disabled
 public class MotorTest extends LinearOpMode {
 
@@ -76,10 +76,10 @@ public class MotorTest extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        fLDrive.setDirection(DcMotor.Direction.FORWARD);
-        fRDrive.setDirection(DcMotor.Direction.REVERSE);
-        bLDrive.setDirection(DcMotor.Direction.FORWARD);
-        bRDrive.setDirection(DcMotor.Direction.REVERSE);
+        fLDrive.setDirection(DcMotor.Direction.REVERSE);
+        fRDrive.setDirection(DcMotor.Direction.FORWARD);
+        bLDrive.setDirection(DcMotor.Direction.REVERSE);
+        bRDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();

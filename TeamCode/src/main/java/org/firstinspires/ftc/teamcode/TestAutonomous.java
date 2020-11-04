@@ -77,10 +77,10 @@ public class TestAutonomous extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        fLDrive.setDirection(DcMotor.Direction.FORWARD);
-        fRDrive.setDirection(DcMotor.Direction.REVERSE);
-        bLDrive.setDirection(DcMotor.Direction.FORWARD);
-        bRDrive.setDirection(DcMotor.Direction.REVERSE);
+        fLDrive.setDirection(DcMotor.Direction.REVERSE);
+        fRDrive.setDirection(DcMotor.Direction.FORWARD);
+        bLDrive.setDirection(DcMotor.Direction.REVERSE);
+        bRDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -111,6 +111,9 @@ public class TestAutonomous extends LinearOpMode {
         while(fLDrive.isBusy()) {
 
             telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
 
         }
 
