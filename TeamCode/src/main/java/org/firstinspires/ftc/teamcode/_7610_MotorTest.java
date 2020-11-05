@@ -31,7 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-@Disabled
-public class TestAutonomous extends LinearOpMode {
+@Autonomous(name="Motor Test", group="Linear Opmode")
+//@Disabled
+public class _7610_MotorTest extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -60,7 +60,6 @@ public class TestAutonomous extends LinearOpMode {
     private DcMotor fRDrive = null;
     private DcMotor bLDrive = null;
     private DcMotor bRDrive = null;
-    private DcMotor intake = null;
 
     @Override
     public void runOpMode() {
@@ -88,44 +87,27 @@ public class TestAutonomous extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
 
-        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        fLDrive.setTargetPosition(2000);
-        fRDrive.setTargetPosition(2000);
-        bLDrive.setTargetPosition(2000);
-        bRDrive.setTargetPosition(2000);
-
-        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        fLDrive.setPower(0.5);
-        fRDrive.setPower(0.5);
-        bLDrive.setPower(0.5);
-        bRDrive.setPower(0.5);
-
-        while(fLDrive.isBusy()) {
-
-            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
-            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
-            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
-            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
-
-        }
-
+        fLDrive.setPower(1.0);
+        sleep(2000);
         fLDrive.setPower(0.0);
-        fRDrive.setPower(0.0);
-        bLDrive.setPower(0.0);
-        bRDrive.setPower(0.0);
 
-        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sleep(1000);
+
+        fRDrive.setPower(1.0);
+        sleep(2000);
+        fRDrive.setPower(0.0);
+
+        sleep(1000);
+
+        bLDrive.setPower(1.0);
+        sleep(2000);
+        bLDrive.setPower(0.0);
+
+        sleep(1000);
+
+        bRDrive.setPower(1.0);
+        sleep(2000);
+        bRDrive.setPower(0.0);
 
     }
 }

@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="Button Test", group="Iterative Opmode")
 //@Disabled
-public class TestTeleOp extends OpMode
+public class _7610_ButtonTest extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -60,7 +60,11 @@ public class TestTeleOp extends OpMode
     private DcMotor fRDrive = null;
     private DcMotor bLDrive = null;
     private DcMotor bRDrive = null;
-    //private DcMotor intake = null;
+
+    private double fLPower = 0;
+    private double fRPower = 0;
+    private double bLPower = 0;
+    private double bRPower = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -76,13 +80,11 @@ public class TestTeleOp extends OpMode
         fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
-        //intake = hardwareMap.get(DcMotor.class, "Intake");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
         bLDrive.setDirection(DcMotor.Direction.REVERSE);
         bRDrive.setDirection(DcMotor.Direction.FORWARD);
-        //intake.setDirection(DcMotor.Direction.REVERSE);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -101,6 +103,10 @@ public class TestTeleOp extends OpMode
     @Override
     public void start() {
         runtime.reset();
+
+        // Setup a variable for each drive wheel to save power level for telemetry
+
+
     }
 
     /*
@@ -108,49 +114,56 @@ public class TestTeleOp extends OpMode
      */
     @Override
     public void loop() {
-        // Setup a variable for each drive wheel to save power level for telemetry
-        double fLPower;
-        double fRPower;
-        double bLPower;
-        double bRPower;
-        //double inPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
-
+/*
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
         double x = gamepad1.left_stick_x;
         double y = -gamepad1.left_stick_y;
         double r = gamepad1.right_stick_x;
-/*
-        if(gamepad1.left_bumper){
-            inPower = 0.5;
-        } else {
-            inPower = 0.0;
-        }
-*/
-        fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
-        fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
-        bLPower   = Range.clip(y - x + r, -0.5, 0.5) ;
-        bRPower   = Range.clip(y + x - r, -0.5, 0.5) ;
+
+        fLPower   = Range.clip(y + x + r, -1.0, 1.0) ;
+        fRPower   = Range.clip(y - x - r, -1.0, 1.0) ;
+        bLPower   = Range.clip(y - x + r, -1.0, 1.0) ;
+        bRPower   = Range.clip(y + x - r, -1.0, 1.0) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
+        // rightPower = -gamepad1.right_stick_y ;*/
 
-        // Send calculated power to wheels
+        if(gamepad1.a)
+            fLPower = 0.5;
+        else
+            fLPower = 0;
+        if(gamepad1.b)
+            fRPower = 0.5;
+        else
+            fRPower = 0;
+        if(gamepad1.x)
+            bLPower = 0.5;
+        else
+            bLPower = 0.0;
+        if(gamepad1.y)
+            bRPower = 0.5;
+        else
+            bRPower = 0.0;
+
+        //Send calculated power to wheels
         fLDrive.setPower(fLPower);
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
-        //intake.setPower(inPower);
+
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
                 fLPower, fRPower, bLPower, bRPower);
-        //telemetry.addData("Intake", "Power: " + inPower);
+
+
+
     }
 
     /*
