@@ -93,10 +93,10 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        fLDrive.setTargetPosition(2000);
-        fRDrive.setTargetPosition(2000);
-        bLDrive.setTargetPosition(2000);
-        bRDrive.setTargetPosition(2000);
+        fLDrive.setTargetPosition(1440);
+        fRDrive.setTargetPosition(1440);
+        bLDrive.setTargetPosition(1440);
+        bRDrive.setTargetPosition(1440);
 
         fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
