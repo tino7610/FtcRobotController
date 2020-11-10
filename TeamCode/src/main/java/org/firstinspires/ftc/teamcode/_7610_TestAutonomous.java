@@ -121,11 +121,120 @@ public class _7610_TestAutonomous extends LinearOpMode {
         fRDrive.setPower(0.0);
         bLDrive.setPower(0.0);
         bRDrive.setPower(0.0);
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        fLDrive.setTargetPosition(-1440);
+        fRDrive.setTargetPosition(-1440);
+        bLDrive.setTargetPosition(-1440);
+        bRDrive.setTargetPosition(-1440);
+
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
 
         fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        fLDrive.setTargetPosition(-1440);
+        fRDrive.setTargetPosition(1440);
+        bLDrive.setTargetPosition(1440);
+        bRDrive.setTargetPosition(-1440);
+
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+
+
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        fLDrive.setTargetPosition(1440);
+        fRDrive.setTargetPosition(-1440);
+        bLDrive.setTargetPosition(-1440);
+        bRDrive.setTargetPosition(1440);
+
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
     }
+
 }
+
+
+
+
