@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -62,6 +63,9 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor bRDrive = null;
     //private DcMotor intake = null;
 
+    //servos
+    private Servo ramp = null;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -78,11 +82,13 @@ public class _7610_TestTeleOp extends OpMode
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
         //intake = hardwareMap.get(DcMotor.class, "Intake");
 
+        ramp = hardwareMap.get(Servo.class, "Ramp");
+
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
         bLDrive.setDirection(DcMotor.Direction.REVERSE);
         bRDrive.setDirection(DcMotor.Direction.FORWARD);
-        //intake.setDirection(DcMotor.Direction.REVERSE);
+        //intake.setDirection(DcMotor.Direction.REVERSE)
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
