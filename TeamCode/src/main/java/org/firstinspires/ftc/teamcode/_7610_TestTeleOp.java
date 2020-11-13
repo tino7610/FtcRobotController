@@ -66,6 +66,9 @@ public class _7610_TestTeleOp extends OpMode
     //servos
     private Servo ramp = null;
 
+    private double rampPos = 0;
+    private boolean aPressed = false;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -136,6 +139,20 @@ public class _7610_TestTeleOp extends OpMode
             inPower = 0.0;
         }
 */
+
+        /*
+        if(gamepad1.a && !aPressed) {
+            if(rampPos == 1) rampPos = 0;
+            else if (rampPos == 0) rampPos = 1;
+            aPressed = true;
+        }
+        else if (!gamepad1.a) aPressed = false;
+        */
+
+        if(gamepad1.a && rampPos == 0) {
+            rampPos = 1;
+        }
+
         fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
         fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
         bLPower   = Range.clip(y - x + r, -0.5, 0.5) ;
@@ -151,6 +168,8 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
+        ramp.setPosition(rampPos);
+
         //intake.setPower(inPower);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
