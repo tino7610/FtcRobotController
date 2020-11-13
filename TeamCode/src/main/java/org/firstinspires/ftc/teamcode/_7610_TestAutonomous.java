@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -102,7 +103,7 @@ public class _7610_TestAutonomous extends LinearOpMode {
         fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
+        
         fLDrive.setPower(0.5);
         fRDrive.setPower(0.5);
         bLDrive.setPower(0.5);
