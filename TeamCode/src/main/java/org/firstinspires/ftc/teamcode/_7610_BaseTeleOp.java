@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -51,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Test TeleOp", group="Iterative Opmode")
+@TeleOp(name="Drive Only", group="Iterative Opmode")
 //@Disabled
-public class _7610_TestTeleOp extends OpMode
+public class _7610_BaseTeleOp extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -61,13 +60,6 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor fRDrive = null;
     private DcMotor bLDrive = null;
     private DcMotor bRDrive = null;
-    private DcMotor intake = null;
-
-    //servos
-    private Servo ramp = null;
-
-    private double rampPos = 0;
-    private boolean aPressed = false;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -83,15 +75,11 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
-        intake = hardwareMap.get(DcMotor.class, "Intake");
-
-        ramp = hardwareMap.get(Servo.class, "Ramp");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
         bLDrive.setDirection(DcMotor.Direction.REVERSE);
         bRDrive.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.REVERSE);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -122,7 +110,6 @@ public class _7610_TestTeleOp extends OpMode
         double fRPower;
         double bLPower;
         double bRPower;
-        double inPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -133,44 +120,27 @@ public class _7610_TestTeleOp extends OpMode
         double y = -gamepad1.left_stick_y;
         double r = gamepad1.right_stick_x;
 
-        if(gamepad1.left_bumper){
-            inPower = 0.5;
-        } else {
-            inPower = 0.0;
-        }
-
-
-        /*
-        if(gamepad1.a && !aPressed) {
-            if(rampPos == 1) rampPos = 0;
-            else if (rampPos == 0) rampPos = 1;
-            aPressed = true;
-        }
-        else if (!gamepad1.a) aPressed = false;
-        */
-
-        if(gamepad1.a && rampPos == 0) {
-            rampPos = 1;
-        }
-
         fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
         fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
         bLPower   = Range.clip(y - x + r, -0.5, 0.5) ;
         bRPower   = Range.clip(y + x - r, -0.5, 0.5) ;
+
+        // Tank Mode uses one stick to control each wheel.
+        // - This requires no math, but it is hard to drive forward slowly and keep straight.
+        // leftPower  = -gamepad1.left_stick_y ;
+        // rightPower = -gamepad1.right_stick_y ;
 
         // Send calculated power to wheels
         fLDrive.setPower(fLPower);
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
-        ramp.setPosition(rampPos);
-        intake.setPower(inPower);
 
+        //intake.setPower(inPower);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
                 fLPower, fRPower, bLPower, bRPower);
-        telemetry.addData("Intake", "Power: " + inPower);
     }
 
     /*
