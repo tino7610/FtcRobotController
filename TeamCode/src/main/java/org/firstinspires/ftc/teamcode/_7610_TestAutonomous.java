@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Test Autonomous", group="Linear Opmode")
-@Disabled
+//@Disabled
 public class _7610_TestAutonomous extends LinearOpMode {
 
     // Declare OpMode members.
