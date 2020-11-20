@@ -64,6 +64,9 @@ public class _7610_TestAutonomous extends LinearOpMode {
     private DcMotor bRDrive = null;
     private DcMotor intake = null;
 
+    private double ticksPerRevolution = 28 * 40 / 2.6; //28 ticks for motor, x40 for gearbox, 10:26 gear ratio so /2.6
+    private double ticksPerInch = ticksPerRevolution / (4 * Math.PI); //four-inch diameter
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
