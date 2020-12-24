@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -62,6 +63,7 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor bLDrive = null;
     private DcMotor bRDrive = null;
     private DcMotor intake = null;
+    private DcMotor outtake = null;
 
     //servos
     private Servo ramp = null;
@@ -84,6 +86,7 @@ public class _7610_TestTeleOp extends OpMode
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
         intake = hardwareMap.get(DcMotor.class, "Intake");
+        outtake = hardwareMap.get(DcMotor.class, "Outtake");
 
         ramp = hardwareMap.get(Servo.class, "Ramp");
 
@@ -92,6 +95,7 @@ public class _7610_TestTeleOp extends OpMode
         bLDrive.setDirection(DcMotor.Direction.REVERSE);
         bRDrive.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.REVERSE);
+        outtake.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -123,6 +127,7 @@ public class _7610_TestTeleOp extends OpMode
         double bLPower;
         double bRPower;
         double inPower;
+        double outPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -138,6 +143,14 @@ public class _7610_TestTeleOp extends OpMode
         } else {
             inPower = 0.0;
         }
+
+        if(gamepad1.right_bumper){
+            outPower = 0.5;
+        } else {
+            outPower = 0.0;
+        }
+
+
 
 
         /*
@@ -165,12 +178,14 @@ public class _7610_TestTeleOp extends OpMode
         bRDrive.setPower(bRPower);
         ramp.setPosition(rampPos);
         intake.setPower(inPower);
+        outtake.setPower(outPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
                 fLPower, fRPower, bLPower, bRPower);
         telemetry.addData("Intake", "Power: " + inPower);
+        telemetry.addData("Outtake", "Power: " + outPower);
     }
 
     /*
