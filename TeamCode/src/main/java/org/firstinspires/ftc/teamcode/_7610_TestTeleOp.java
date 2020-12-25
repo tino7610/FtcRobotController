@@ -67,9 +67,16 @@ public class _7610_TestTeleOp extends OpMode
 
     //servos
     private Servo ramp = null;
+    //private Servo armElbow = null;
+    private Servo armWrist = null;
 
     private double rampPos = 0;
     private boolean aPressed = false;
+
+    private double armWristPos = 0;
+    private boolean bPressed = false;
+
+    //private double armElbowPos = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -89,6 +96,8 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "Outtake");
 
         ramp = hardwareMap.get(Servo.class, "Ramp");
+        //armElbow = hardwareMap.get(Servo.class, "armElbow");
+        armWrist = hardwareMap.get(Servo.class, "armWrist");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -165,6 +174,15 @@ public class _7610_TestTeleOp extends OpMode
         if(gamepad1.a && rampPos == 0) {
             rampPos = 1;
         }
+        if(gamepad1.b && !bPressed) {
+            if(armWristPos == 0.5) armWristPos = 0;
+            else if (armWristPos == 0) armWristPos = 0.5;
+            bPressed = true;
+        }
+//        if(gamepad1.a && armElbowPos == 0) {
+//            rampPos = 1;
+//        }
+
 
         fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
         fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
@@ -177,6 +195,7 @@ public class _7610_TestTeleOp extends OpMode
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
         ramp.setPosition(rampPos);
+        armWrist.setPosition(armWristPos);
         intake.setPower(inPower);
         outtake.setPower(outPower);
 
