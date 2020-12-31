@@ -64,6 +64,7 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor bRDrive = null;
     private DcMotor intake = null;
     private DcMotor outtake = null;
+    private DcMotor cBelt = null;
 
     //servos
     private Servo ramp = null;
@@ -94,6 +95,7 @@ public class _7610_TestTeleOp extends OpMode
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
         intake = hardwareMap.get(DcMotor.class, "Intake");
         outtake = hardwareMap.get(DcMotor.class, "Outtake");
+        cBelt = hardwareMap.get(DcMotor.class,"ConveyorBelt");
 
         ramp = hardwareMap.get(Servo.class, "Ramp");
         //armElbow = hardwareMap.get(Servo.class, "armElbow");
@@ -105,6 +107,7 @@ public class _7610_TestTeleOp extends OpMode
         bRDrive.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.REVERSE);
         outtake.setDirection(DcMotor.Direction.FORWARD);
+        cBelt.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -137,6 +140,7 @@ public class _7610_TestTeleOp extends OpMode
         double bRPower;
         double inPower;
         double outPower;
+        double cBeltPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -159,7 +163,11 @@ public class _7610_TestTeleOp extends OpMode
             outPower = 0.0;
         }
 
-
+        if(gamepad1.x) {
+            cBeltPower = 0.5;
+        } else {
+            cBeltPower = 0.0;
+        }
 
 
         /*
@@ -198,6 +206,7 @@ public class _7610_TestTeleOp extends OpMode
         armWrist.setPosition(armWristPos);
         intake.setPower(inPower);
         outtake.setPower(outPower);
+        cBelt.setPower(cBeltPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -205,6 +214,7 @@ public class _7610_TestTeleOp extends OpMode
                 fLPower, fRPower, bLPower, bRPower);
         telemetry.addData("Intake", "Power: " + inPower);
         telemetry.addData("Outtake", "Power: " + outPower);
+        telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
     }
 
     /*
