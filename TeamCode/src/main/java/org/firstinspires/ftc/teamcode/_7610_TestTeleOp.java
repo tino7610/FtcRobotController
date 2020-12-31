@@ -68,7 +68,7 @@ public class _7610_TestTeleOp extends OpMode
 
     //servos
     private Servo ramp = null;
-    //private Servo armElbow = null;
+    private Servo armElbow = null;
     private Servo armWrist = null;
 
     private double rampPos = 0;
@@ -77,7 +77,7 @@ public class _7610_TestTeleOp extends OpMode
     private double armWristPos = 0;
     private boolean bPressed = false;
 
-    //private double armElbowPos = 0;
+    private double armElbowPos = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -98,7 +98,7 @@ public class _7610_TestTeleOp extends OpMode
         cBelt = hardwareMap.get(DcMotor.class,"ConveyorBelt");
 
         ramp = hardwareMap.get(Servo.class, "Ramp");
-        //armElbow = hardwareMap.get(Servo.class, "armElbow");
+        armElbow = hardwareMap.get(Servo.class, "armElbow");
         armWrist = hardwareMap.get(Servo.class, "armWrist");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -170,26 +170,28 @@ public class _7610_TestTeleOp extends OpMode
         }
 
 
-        /*
+
         if(gamepad1.a && !aPressed) {
             if(rampPos == 1) rampPos = 0;
             else if (rampPos == 0) rampPos = 1;
             aPressed = true;
         }
         else if (!gamepad1.a) aPressed = false;
-        */
 
+        /*
         if(gamepad1.a && rampPos == 0) {
             rampPos = 1;
         }
-        if(gamepad1.b && !bPressed) {
+        */
+        if(gamepad2.b && !bPressed) {
             if(armWristPos == 0.5) armWristPos = 0;
             else if (armWristPos == 0) armWristPos = 0.5;
             bPressed = true;
         }
-//        if(gamepad1.a && armElbowPos == 0) {
-//            rampPos = 1;
-//        }
+
+        if(gamepad2.a && armElbowPos == 0) {
+            rampPos = 1;
+        }
 
 
         fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
@@ -207,6 +209,7 @@ public class _7610_TestTeleOp extends OpMode
         intake.setPower(inPower);
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
+
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
