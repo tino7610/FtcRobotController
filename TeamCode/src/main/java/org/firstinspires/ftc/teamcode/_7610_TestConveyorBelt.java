@@ -1,3 +1,4 @@
+package org.firstinspires.ftc.teamcode;
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,8 +28,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -54,30 +53,11 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Test TeleOp", group="Iterative Opmode")
 //@Disabled
-public class _7610_TestTeleOp extends OpMode
+public class _7610_TestConveyorBelt extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor fLDrive = null;
-    private DcMotor fRDrive = null;
-    private DcMotor bLDrive = null;
-    private DcMotor bRDrive = null;
-    private DcMotor intake = null;
-    private DcMotor outtake = null;
     private DcMotor cBelt = null;
-
-    //servos
-    private Servo ramp = null;
-    private Servo armElbow = null;
-    private Servo armWrist = null;
-
-    private double rampPos = 0;
-    private boolean aPressed = false;
-
-    private double armWristPos = 0;
-    private boolean bPressed = false;
-
-    private double armElbowPos = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -89,24 +69,15 @@ public class _7610_TestTeleOp extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        fLDrive  = hardwareMap.get(DcMotor.class, "LeftFront");
+       /* fLDrive  = hardwareMap.get(DcMotor.class, "LeftFront");
         fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
-        intake = hardwareMap.get(DcMotor.class, "intake");
-        outtake = hardwareMap.get(DcMotor.class, "shooter");
+
+        */
+
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        ramp = hardwareMap.get(Servo.class, "Ramp");
-        armElbow = hardwareMap.get(Servo.class, "armElbow");
-        armWrist = hardwareMap.get(Servo.class, "armWrist");
-
-        fLDrive.setDirection(DcMotor.Direction.REVERSE);
-        fRDrive.setDirection(DcMotor.Direction.FORWARD);
-        bLDrive.setDirection(DcMotor.Direction.REVERSE);
-        bRDrive.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.REVERSE);
-        outtake.setDirection(DcMotor.Direction.FORWARD);
         cBelt.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
@@ -134,12 +105,6 @@ public class _7610_TestTeleOp extends OpMode
     @Override
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
-        double fLPower;
-        double fRPower;
-        double bLPower;
-        double bRPower;
-        double inPower;
-        double outPower;
         double cBeltPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
@@ -147,22 +112,6 @@ public class _7610_TestTeleOp extends OpMode
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        double x = gamepad1.left_stick_x;
-        double y = -gamepad1.left_stick_y;
-        double r = gamepad1.right_stick_x;
-
-
-        if(gamepad1.left_bumper){
-            inPower = 0.5;
-        } else {
-            inPower = 0.0;
-        }
-
-        if(gamepad1.right_bumper){
-            outPower = 0.5;
-        } else {
-            outPower = 0.0;
-        }
 
         if(gamepad1.x) {
             cBeltPower = 0.5;
@@ -170,56 +119,11 @@ public class _7610_TestTeleOp extends OpMode
             cBeltPower = 0.0;
         }
 
-
-        if(gamepad1.a && !aPressed) {
-            if(rampPos == 1) rampPos = 0;
-            else if (rampPos == 0) rampPos = 1;
-            aPressed = true;
-        }
-        else if (!gamepad1.a) aPressed = false;
-
-
-        if(gamepad1.a && rampPos == 0) {
-            rampPos = 1;
-        }
-
-        if(gamepad2.b && !bPressed) {
-            if(armWristPos == 0.5) armWristPos = 0;
-            else if (armWristPos == 0) armWristPos = 0.5;
-            bPressed = true;
-        }
-
-        if(gamepad2.a && armElbowPos == 0) {
-            armElbowPos = 1;
-        }
-
-
-        fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
-        fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
-        bLPower   = Range.clip(y - x + r, -0.5, 0.5) ;
-        bRPower   = Range.clip(y + x - r, -0.5, 0.5) ;
-
         // Send calculated power to wheels
-        fLDrive.setPower(fLPower);
-        fRDrive.setPower(fRPower);
-        bLDrive.setPower(bLPower);
-        bRDrive.setPower(bRPower);
-        ramp.setPosition(rampPos);
-        armWrist.setPosition(armWristPos);
-        armElbow.setPosition(armElbowPos);
-        intake.setPower(inPower);
-        outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
 
 
         // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left front (%.2f), right front (%.2f), left back (%.2f), right back (%.2f)",
-                fLPower, fRPower, bLPower, bRPower);
-
-
-        telemetry.addData("Intake", "Power: " + inPower);
-        telemetry.addData("Outtake", "Power: " + outPower);
         telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
     }
 
