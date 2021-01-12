@@ -100,6 +100,7 @@ public class _7610_TestArmElbow extends OpMode
      */
     @Override
     public void loop() {
+
         // Setup a variable for each drive wheel to save power level for telemetry
 
         // Choose to drive using either Tank Mode, or POV Mode
@@ -109,8 +110,8 @@ public class _7610_TestArmElbow extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
 
 
-        if(gamepad2.a && armElbowPos == 0) {
-            armElbowPos = 1;
+        if(gamepad2.a) {
+            armElbowPos += 0.05;
         }
 
         // Show the elapsed game time and wheel power.
