@@ -113,7 +113,7 @@ public class _7610_TestOuttake extends OpMode
 
 
         // Show the elapsed game time and wheel power.
-        telemetry.addData("Outtake", "Power: " + outPower);
+
         outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         if(gamepad1.right_bumper){
@@ -123,6 +123,8 @@ public class _7610_TestOuttake extends OpMode
         }
 
         outtake.setPower(outPower);
+
+        telemetry.addData("Outtake", "Power: " + outPower);
 
 
     }
