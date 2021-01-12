@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -107,18 +108,23 @@ public class _7610_TestOuttake extends OpMode
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
 
+
+        // Send calculated power to wheels
+
+
+        // Show the elapsed game time and wheel power.
+        telemetry.addData("Outtake", "Power: " + outPower);
+        outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         if(gamepad1.right_bumper){
             outPower = 0.5;
         } else {
             outPower = 0.0;
         }
 
-        // Send calculated power to wheels
         outtake.setPower(outPower);
 
 
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("Outtake", "Power: " + outPower);
     }
 
     /*
