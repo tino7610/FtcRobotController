@@ -79,7 +79,7 @@ public class _7610_TestTeleOp extends OpMode
 
     private double armElbowPos = 0; /*
 
-
+    /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
@@ -97,9 +97,9 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        /*ramp = hardwareMap.get(Servo.class, "Ramp");
+        ramp = hardwareMap.get(Servo.class, "Ramp");
         armElbow = hardwareMap.get(Servo.class, "armElbow");
-        armWrist = hardwareMap.get(Servo.class, "armWrist");*/
+        armWrist = hardwareMap.get(Servo.class, "armWrist");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -204,9 +204,9 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
-        /*ramp.setPosition(rampPos);
+        ramp.setPosition(rampPos);
         armWrist.setPosition(armWristPos);
-        armElbow.setPosition(armElbowPos);*/
+        armElbow.setPosition(armElbowPos);
         intake.setPower(inPower);
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
