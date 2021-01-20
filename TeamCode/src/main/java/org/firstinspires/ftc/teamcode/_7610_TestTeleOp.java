@@ -159,13 +159,13 @@ public class _7610_TestTeleOp extends OpMode
         }
 
         if(gamepad1.right_bumper){
-            outPower = 0.5;
+            outPower = -1.0;
         } else {
             outPower = 0.0;
         }
 
         if(gamepad1.x) {
-            cBeltPower = 0.5;
+            cBeltPower = 1.0;
         } else {
             cBeltPower = 0.0;
         }
