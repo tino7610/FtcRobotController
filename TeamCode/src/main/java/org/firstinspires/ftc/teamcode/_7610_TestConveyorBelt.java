@@ -113,7 +113,7 @@ public class _7610_TestConveyorBelt extends OpMode
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
 
-        if(gamepad1.x) {
+        if(gamepad1.right_bumper) {
             cBeltPower = 1.0;
         } else {
             cBeltPower = 0.0;

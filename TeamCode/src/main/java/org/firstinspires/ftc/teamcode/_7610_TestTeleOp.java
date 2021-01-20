@@ -67,7 +67,7 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor cBelt = null;
 
     //servos
-   /* private Servo ramp = null;
+    private Servo ramp = null;
     private Servo armElbow = null;
     private Servo armWrist = null;
 
@@ -79,7 +79,7 @@ public class _7610_TestTeleOp extends OpMode
 
     private double armElbowPos = 0; /*
 
-    /*
+
      * Code to run ONCE when the driver hits INIT
      */
     @Override
