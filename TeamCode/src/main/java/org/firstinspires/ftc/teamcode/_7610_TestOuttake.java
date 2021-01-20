@@ -117,7 +117,7 @@ public class _7610_TestOuttake extends OpMode
         outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         if(gamepad1.right_bumper){
-            outPower = 0.5;
+            outPower = 1.0;
         } else {
             outPower = 0.0;
         }
