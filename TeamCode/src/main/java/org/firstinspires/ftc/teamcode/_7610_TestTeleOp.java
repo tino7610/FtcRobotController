@@ -67,7 +67,7 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor cBelt = null;
 
     //servos
-    private Servo ramp = null;
+   /* private Servo ramp = null;
     private Servo armElbow = null;
     private Servo armWrist = null;
 
@@ -77,7 +77,7 @@ public class _7610_TestTeleOp extends OpMode
     private double armWristPos = 0;
     private boolean bPressed = false;
 
-    private double armElbowPos = 0;
+    private double armElbowPos = 0; /*
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -97,9 +97,9 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        ramp = hardwareMap.get(Servo.class, "Ramp");
+        /*ramp = hardwareMap.get(Servo.class, "Ramp");
         armElbow = hardwareMap.get(Servo.class, "armElbow");
-        armWrist = hardwareMap.get(Servo.class, "armWrist");
+        armWrist = hardwareMap.get(Servo.class, "armWrist");*/
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -171,7 +171,7 @@ public class _7610_TestTeleOp extends OpMode
         }
 
 
-        if(gamepad1.a && !aPressed) {
+        /*if(gamepad1.a && !aPressed) {
             if(rampPos == 1) rampPos = 0;
             else if (rampPos == 0) rampPos = 1;
             aPressed = true;
@@ -192,7 +192,7 @@ public class _7610_TestTeleOp extends OpMode
         if(gamepad2.a && armElbowPos == 0) {
             armElbowPos = 1;
         }
-
+*/
 
         fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
         fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
@@ -204,9 +204,9 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
-        ramp.setPosition(rampPos);
+        /*ramp.setPosition(rampPos);
         armWrist.setPosition(armWristPos);
-        armElbow.setPosition(armElbowPos);
+        armElbow.setPosition(armElbowPos);*/
         intake.setPower(inPower);
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
