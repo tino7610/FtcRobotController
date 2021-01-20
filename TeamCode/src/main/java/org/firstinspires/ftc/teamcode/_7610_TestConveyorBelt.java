@@ -114,7 +114,7 @@ public class _7610_TestConveyorBelt extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
 
         if(gamepad1.x) {
-            cBeltPower = 0.5;
+            cBeltPower = 1.0;
         } else {
             cBeltPower = 0.0;
         }
