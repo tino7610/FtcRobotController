@@ -59,6 +59,10 @@ public class _7610_TestOuttake extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor outtake = null;
+    private DcMotor cBelt = null;
+
+    private boolean rBumperPressed = false;
+    private double time = 0.0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -72,8 +76,12 @@ public class _7610_TestOuttake extends OpMode
         // step (using the FTC Robot Controller app on the phone).
 
         outtake = hardwareMap.get(DcMotor.class, "shooter");
+        cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        outtake.setDirection(DcMotor.Direction.FORWARD);
+        cBelt.setDirection(DcMotor.Direction.FORWARD);
+
+        outtake.setDirection(DcMotor.Direction.REVERSE);
+
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -101,6 +109,7 @@ public class _7610_TestOuttake extends OpMode
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
         double outPower;
+        double cBeltPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -116,15 +125,41 @@ public class _7610_TestOuttake extends OpMode
 
         outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        if(gamepad1.x){
-            outPower = -1.0;
+        if(gamepad1.right_bumper){
+            outPower = 1.0;
+            cBeltPower = 1.0;
         } else {
             outPower = 0.0;
+            cBeltPower = 0.0;
         }
 
+        if(gamepad1.right_bumper) {
+
+            cBeltPower = 1.0;
+
+            if (!rBumperPressed) {
+
+                rBumperPressed = true;
+                time = getRuntime();
+                cBelt.setDirection(DcMotor.Direction.REVERSE);
+
+            }
+
+            else if (getRuntime() - time == 500) {
+
+                cBelt.setDirection(DcMotor.Direction.FORWARD);
+                outPower = 1.0;
+
+            }
+
+        }
+        else if (!gamepad1.right_bumper) rBumperPressed = false;
+
         outtake.setPower(outPower);
+        cBelt.setPower(cBeltPower);
 
         telemetry.addData("Outtake", "Power: " + outPower);
+        telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
 
 
     }

@@ -59,6 +59,7 @@ public class _7610_TestIntake extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor intake = null;
+    private DcMotor cBelt = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -74,6 +75,10 @@ public class _7610_TestIntake extends OpMode
         intake = hardwareMap.get(DcMotor.class, "intake");
 
         intake.setDirection(DcMotor.Direction.REVERSE);
+
+        cBelt = hardwareMap.get(DcMotor.class,"belt");
+
+        cBelt.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -101,6 +106,7 @@ public class _7610_TestIntake extends OpMode
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
         double inPower;
+        double cBeltPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -110,12 +116,16 @@ public class _7610_TestIntake extends OpMode
 
         if(gamepad1.left_bumper){
             inPower = 0.5;
+            cBeltPower = 1.0;
         } else {
             inPower = 0.0;
+            cBeltPower = 0.0;
         }
 
         intake.setPower(inPower);
+        cBelt.setPower(cBeltPower);
 
+        telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
         // Show the elapsed game time and wheel power.
         telemetry.addData("Intake", "Power: " + inPower);
     }
