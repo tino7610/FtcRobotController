@@ -119,6 +119,7 @@ public class _7610_TestConveyorBelt extends OpMode
             cBeltPower = 0.0;
         }
 
+
         // Send calculated power to wheels
         cBelt.setPower(cBeltPower);
 
