@@ -110,9 +110,9 @@ public class _7610_TestArmElbow extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
         double y = gamepad2.left_stick_y;
 
-        if(y > 0.0)
+        if (y > 0.0)
             armElbowPos += 0.1;
-        else if(y < 0.0)
+        else if (y < 0.0)
             armElbowPos -= 0.1;
 
         /*if(gamepad2.a) {
@@ -120,7 +120,9 @@ public class _7610_TestArmElbow extends OpMode
         }*/
 
         // Show the elapsed game time and wheel power.
-       armElbow.setPosition(armElbowPos);
+        armElbow.setPosition(armElbowPos);
+
+        telemetry.addData("Elbow", "Position: " + armElbowPos);
     }
 
     /*
