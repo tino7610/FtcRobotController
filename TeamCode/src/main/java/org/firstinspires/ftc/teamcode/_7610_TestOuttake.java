@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -111,6 +112,7 @@ public class _7610_TestOuttake extends OpMode
         double outPower;
         double cBeltPower;
 
+
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
 
@@ -124,7 +126,7 @@ public class _7610_TestOuttake extends OpMode
         // Show the elapsed game time and wheel power.
 
         outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        // setting motor powers
         if(gamepad1.right_bumper){
             outPower = 1.0;
             cBeltPower = 1.0;
@@ -132,8 +134,23 @@ public class _7610_TestOuttake extends OpMode
             outPower = 0.0;
             cBeltPower = 0.0;
         }
+        // reversing conveyor belt for some time to get momentum and then going forward into outtake
+        if(gamepad1.right_bumper){
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime;
+            long count = startTime + 500;
+            while (endTime <= count) {
+                cBelt.setDirection(DcMotor.Direction.REVERSE);
+                outPower = 1.0;
+                endTime = System.currentTimeMillis();
+            while (endTime < count) {
+                cBelt.setDirection(DcMotor.Direction.FORWARD);
+                outPower = 1.0;
+                endTime = System.currentTimeMillis();
+                }
+            }
 
-        if(gamepad1.right_bumper) {
+        /*if(gamepad1.right_bumper) {
 
             cBeltPower = 1.0;
 
@@ -150,10 +167,36 @@ public class _7610_TestOuttake extends OpMode
                 cBelt.setDirection(DcMotor.Direction.FORWARD);
                 outPower = 1.0;
 
+            else if (!gamepad1.right_bumper) rBumperPressed = false;
             }
 
+        public class TestTimer1 {
+	        public static void main(String[] args) {
+		        long startTime = System.currentTimeMillis();
+		        long endTime = startTime;
+		        long count = startTime + 500;
+		        long buttonNotPressed = count + 500;
+		        System.out.print(startTime + " " + endTime + " " + count);
+		        while (endTime <= count) {
+			        System.out.println("REVERSE!!");
+			        endTime = System.currentTimeMillis();
+	    	}
+		    System.out.println(endTime);
+		    while (endTime < buttonNotPressed) {
+			    System.out.println("FORWARD;)");
+			    endTime = System.currentTimeMillis();
+		    }
+
+
+	}
+}
+
+         */
+
+
+
         }
-        else if (!gamepad1.right_bumper) rBumperPressed = false;
+
 
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
