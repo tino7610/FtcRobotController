@@ -62,6 +62,8 @@ public class _7610_TestOuttake extends OpMode
     private DcMotor outtake = null;
     private DcMotor cBelt = null;
 
+    private long startTime;
+
     private boolean rBumperPressed = false;
     private double time = 0.0;
 
@@ -78,6 +80,9 @@ public class _7610_TestOuttake extends OpMode
 
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
+
+        outtake.setDirection(DcMotor.Direction.FORWARD);
+        cBelt.setDirection(DcMotor.Direction.FORWARD);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -123,26 +128,49 @@ public class _7610_TestOuttake extends OpMode
         outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // setting motor powers
         if(gamepad1.right_bumper){
-            outPower = 1.0;
-            cBeltPower = 1.0;
-        } else {
+
+            outPower = 0.0;
+
+            if(!rBumperPressed) {
+
+                rBumperPressed = true;
+                startTime = System.currentTimeMillis();
+                cBeltPower = -1.0;
+
+            }
+            else {
+
+                if(System.currentTimeMillis() < startTime + 500) cBeltPower = -1.0;
+                else {
+
+                    cBeltPower = 1.0;
+
+                }
+
+            }
+
+        }
+
+        else {
             outPower = 0.0;
             cBeltPower = 0.0;
+            rBumperPressed = false;
         }
         // reversing conveyor belt for some time to get momentum and then going forward into outtake
-        if(gamepad1.right_bumper){
-            long startTime = System.currentTimeMillis();
+        /*if(gamepad1.right_bumper){
+            startTime = System.currentTimeMillis();
             long endTime = startTime;
             long count = startTime + 500;
             while (endTime <= count) {
-                //cBelt.setDirection(DcMotor.Direction.REVERSE);
+                startTime = System.currentTimeMillis();
+                //
                 endTime = System.currentTimeMillis();
-            while (endTime > count) {
-                cBelt.setDirection(DcMotor.Direction.FORWARD);
-                cBeltPower = -1.0;
-                endTime = System.currentTimeMillis();
+                while (endTime > count) {
+                    cBelt.setDirection(DcMotor.Direction.FORWARD);
+                    cBeltPower = -1.0;
+                    endTime = System.currentTimeMillis();
                 }
-            }
+            }*/
 
         /*if(gamepad1.right_bumper) {
 
@@ -161,36 +189,11 @@ public class _7610_TestOuttake extends OpMode
                 cBelt.setDirection(DcMotor.Direction.FORWARD);
                 outPower = 1.0;
 
-            else if (!gamepad1.right_bumper) rBumperPressed = false;
             }
-
-        public class TestTimer1 {
-	        public static void main(String[] args) {
-		        long startTime = System.currentTimeMillis();
-		        long endTime = startTime;
-		        long count = startTime + 500;
-		        long buttonNotPressed = count + 500;
-		        System.out.print(startTime + " " + endTime + " " + count);
-		        while (endTime <= count) {
-			        System.out.println("REVERSE!!");
-			        endTime = System.currentTimeMillis();
-	    	}
-		    System.out.println(endTime);
-		    while (endTime < buttonNotPressed) {
-			    System.out.println("FORWARD;)");
-			    endTime = System.currentTimeMillis();
-		    }
-
-
 	}
 }
 
          */
-
-
-
-        }
-
 
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
@@ -199,13 +202,14 @@ public class _7610_TestOuttake extends OpMode
         telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
 
 
-    }
+        }
 
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
-    @Override
-    public void stop() {
-    }
+        /*
+         * Code to run ONCE after the driver hits STOP
+         */
+        @Override
+        public void stop() {
+        }
+
 
 }
