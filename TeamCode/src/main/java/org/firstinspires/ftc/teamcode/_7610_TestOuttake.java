@@ -79,11 +79,6 @@ public class _7610_TestOuttake extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        cBelt.setDirection(DcMotor.Direction.FORWARD);
-
-        outtake.setDirection(DcMotor.Direction.REVERSE);
-
-
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -140,12 +135,11 @@ public class _7610_TestOuttake extends OpMode
             long endTime = startTime;
             long count = startTime + 500;
             while (endTime <= count) {
-                cBelt.setDirection(DcMotor.Direction.REVERSE);
-                outPower = 1.0;
+                //cBelt.setDirection(DcMotor.Direction.REVERSE);
                 endTime = System.currentTimeMillis();
-            while (endTime < count) {
+            while (endTime > count) {
                 cBelt.setDirection(DcMotor.Direction.FORWARD);
-                outPower = 1.0;
+                cBeltPower = -1.0;
                 endTime = System.currentTimeMillis();
                 }
             }
