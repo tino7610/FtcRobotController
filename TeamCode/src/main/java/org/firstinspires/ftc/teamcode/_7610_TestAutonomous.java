@@ -98,10 +98,17 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        fLDrive.setTargetPosition(1440);
-        fRDrive.setTargetPosition(1440);
-        bLDrive.setTargetPosition(1440);
-        bRDrive.setTargetPosition(1440);
+        //For going to the first target zone (the one straight ahead of the robot start line)
+
+        fLDrive.setTargetPosition(60 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(60 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(60 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(60 * (int)ticksPerInch);
+
+        fLDrive.setTargetPosition(-12 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(12 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(12 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(-12 * (int)ticksPerInch);
 
         fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -126,7 +133,7 @@ public class _7610_TestAutonomous extends LinearOpMode {
         fRDrive.setPower(0.0);
         bLDrive.setPower(0.0);
         bRDrive.setPower(0.0);
-        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        /*fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -235,6 +242,8 @@ public class _7610_TestAutonomous extends LinearOpMode {
         fRDrive.setPower(0.0);
         bLDrive.setPower(0.0);
         bRDrive.setPower(0.0);
+
+         */
 
     }
 
