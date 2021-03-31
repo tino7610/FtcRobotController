@@ -66,6 +66,7 @@ public class _7610_TestArmElbow extends OpMode
     private AnalogInput analog; // this pot is plugged into analog input 0
 
     //servos
+
     private Servo armElbow = null;
 
     private double armElbowPos = 0;
@@ -87,7 +88,7 @@ public class _7610_TestArmElbow extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        armElbow = hardwareMap.get(Servo.class, "armElbow");
+        //armElbow = hardwareMap.get(Servo.class, "wobbleservo");
         analog = hardwareMap.get(AnalogInput.class, "wobblepot");
 
         // Tell the driver that initialization is complete.
