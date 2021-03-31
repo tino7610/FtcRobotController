@@ -67,7 +67,7 @@ public class _7610_TestArmElbow extends OpMode
 
     //servos
 
-    private Servo armElbow = null;
+    //private Servo armElbow = null;
 
     private double armElbowPos = 0;
 
@@ -142,7 +142,7 @@ public class _7610_TestArmElbow extends OpMode
         armElbowPos = (armAngleDegrees/180);
 
         // Show the elapsed game time and wheel power.
-        armElbow.setPosition(armElbowPos);
+        //armElbow.setPosition(armElbowPos);
 
         telemetry.addData("Voltage Reading", voltageReading);
         telemetry.addData("Elbow", "Position: " + armElbowPos);
