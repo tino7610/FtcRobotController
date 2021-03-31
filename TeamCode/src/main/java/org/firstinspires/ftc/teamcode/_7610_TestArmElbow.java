@@ -61,6 +61,7 @@ public class _7610_TestArmElbow extends OpMode
     private ElapsedTime runtime = new ElapsedTime();
 
     // Declare the AnalogPotentiometer object
+    //Controller/channel might be the port in which the potentiometer is connected, so ask Mr.Williams what port it is in and when connected to robot, error will go away
 
     AnalogInput analog = new AnalogInput(0); // this pot is plugged into analog input 0
 
@@ -72,6 +73,8 @@ public class _7610_TestArmElbow extends OpMode
     private double voltageReading = 0;
 
     private double potentiometerMaxAngle = 270;
+
+    private double armAngleDegrees = 0;
 
 
     /*
@@ -132,7 +135,9 @@ public class _7610_TestArmElbow extends OpMode
 
         voltageReading = analog.getVoltage();
 
-        armElbowPos = (potentiometerMaxAngle/3.3) * voltageReading;
+        armAngleDegrees = (potentiometerMaxAngle/3.3) * voltageReading;
+
+        armElbowPos = (armAngleDegrees/180);
 
         // Show the elapsed game time and wheel power.
         armElbow.setPosition(armElbowPos);
