@@ -145,7 +145,7 @@ public class _7610_TestOuttake extends OpMode
                 else {
 
                     cBeltPower = 1.0;
-                    outPower = 1.0;
+                    outPower = -1.0;
 
                 }
 
