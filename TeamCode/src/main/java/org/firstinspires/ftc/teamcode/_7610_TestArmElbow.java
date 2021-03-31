@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -59,10 +60,19 @@ public class _7610_TestArmElbow extends OpMode
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
+    // Declare the AnalogPotentiometer object
+
+    AnalogInput analog = new AnalogInput(0); // this pot is plugged into analog input 0
+
     //servos
     private Servo armElbow = null;
 
     private double armElbowPos = 0;
+
+    private double voltageReading = 0;
+
+    private double potentiometerMaxAngle = 270;
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -108,7 +118,8 @@ public class _7610_TestArmElbow extends OpMode
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        double y = gamepad2.left_stick_y;
+
+        /* double y = gamepad2.left_stick_y;
 
         if (y > 0.0)
             armElbowPos += 0.1;
@@ -118,6 +129,10 @@ public class _7610_TestArmElbow extends OpMode
         /*if(gamepad2.a) {
             armElbowPos += 0.05;
         }*/
+
+        voltageReading = analog.getVoltage();
+
+        armElbowPos = (potentiometerMaxAngle/3.3) * voltageReading;
 
         // Show the elapsed game time and wheel power.
         armElbow.setPosition(armElbowPos);
