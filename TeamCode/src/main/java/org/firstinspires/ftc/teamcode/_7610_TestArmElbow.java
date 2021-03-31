@@ -63,7 +63,7 @@ public class _7610_TestArmElbow extends OpMode
     // Declare the AnalogPotentiometer object
     //Controller/channel might be the port in which the potentiometer is connected, so ask Mr.Williams what port it is in and when connected to robot, error will go away
 
-    AnalogInput analog = new AnalogInput(0); // this pot is plugged into analog input 0
+    private AnalogInput analog; // this pot is plugged into analog input 0
 
     //servos
     private Servo armElbow = null;
@@ -88,6 +88,7 @@ public class _7610_TestArmElbow extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         armElbow = hardwareMap.get(Servo.class, "armElbow");
+        analog = hardwareMap.get(AnalogInput.class, "wobblepot");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -142,6 +143,7 @@ public class _7610_TestArmElbow extends OpMode
         // Show the elapsed game time and wheel power.
         armElbow.setPosition(armElbowPos);
 
+        telemetry.addData("Voltage Reading", voltageReading);
         telemetry.addData("Elbow", "Position: " + armElbowPos);
     }
 
