@@ -145,7 +145,7 @@ public class _7610_TestArmElbow extends OpMode
         //armElbow.setPosition(armElbowPos);
 
         telemetry.addData("Voltage Reading", voltageReading);
-        //telemetry.addData("Elbow", "Position: " + armElbowPos);
+        telemetry.addData("Elbow", "Position: " + armElbowPos);
     }
 
     /*

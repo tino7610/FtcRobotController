@@ -137,6 +137,7 @@ public class _7610_TestOuttake extends OpMode
                 startTime = System.currentTimeMillis();
                 cBeltPower = -1.0;
 
+
             }
             else {
 
@@ -144,6 +145,7 @@ public class _7610_TestOuttake extends OpMode
                 else {
 
                     cBeltPower = 1.0;
+                    outPower = 1.0;
 
                 }
 
