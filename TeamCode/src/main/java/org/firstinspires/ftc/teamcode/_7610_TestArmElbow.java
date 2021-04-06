@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -67,7 +68,7 @@ public class _7610_TestArmElbow extends OpMode
 
     //servos
 
-    //private Servo armElbow = null;
+    private CRServo armElbow = null;
 
     private double armElbowPos = 0;
 
@@ -83,12 +84,12 @@ public class _7610_TestArmElbow extends OpMode
      */
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
+
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        //armElbow = hardwareMap.get(Servo.class, "wobbleservo");
+        armElbow = hardwareMap.get(CRServo.class, "wobbleservo");
         analog = hardwareMap.get(AnalogInput.class, "wobblepot");
 
         // Tell the driver that initialization is complete.
