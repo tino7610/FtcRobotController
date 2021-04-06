@@ -71,12 +71,20 @@ public class _7610_TestTeleOp extends OpMode
     private Servo armElbow = null;
     private Servo armWrist = null;
 
+    //ramp
     private double rampPos = 0;
     private boolean aPressed = false;
 
+    //outtake
+    private long startTime;
+    private boolean rBumperPressed = false;
+    private double time = 0.0;
+
+    //wrist
     private double armWristPos = 0;
     private boolean bPressed = false;
 
+    //elbow
     private double armElbowPos = 0; /*
 
     /*
@@ -151,25 +159,51 @@ public class _7610_TestTeleOp extends OpMode
         double y = -gamepad1.left_stick_y;
         double r = gamepad1.right_stick_x;
 
+        cBeltPower = 0.0;
 
         if(gamepad1.left_bumper){
             inPower = 0.5;
+            cBeltPower = 1.0;
         } else {
             inPower = 0.0;
         }
 
+        outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // setting motor powers
         if(gamepad1.right_bumper){
-            outPower = -1.0;
-        } else {
+
             outPower = 0.0;
+
+            if(!rBumperPressed) {
+
+                rBumperPressed = true;
+                startTime = System.currentTimeMillis();
+                cBeltPower = -1.0;
+
+
+            }
+            else {
+
+                if(System.currentTimeMillis() < startTime + 500) cBeltPower = -1.0;
+                else {
+
+                    cBeltPower = 1.0;
+                    outPower = -1.0;
+
+                }
+
+            }
+
         }
 
-        if(gamepad1.x) {
-            cBeltPower = 1.0;
-        } else {
-            cBeltPower = 0.0;
+        else {
+            outPower = 0.0;
+            rBumperPressed = false;
         }
 
+        if(gamepad1.a && rampPos == 0) {
+            rampPos = 1;
+        }
 
         /*if(gamepad1.a && !aPressed) {
             if(rampPos == 1) rampPos = 0;
@@ -178,10 +212,6 @@ public class _7610_TestTeleOp extends OpMode
         }
         else if (!gamepad1.a) aPressed = false;
 
-
-        if(gamepad1.a && rampPos == 0) {
-            rampPos = 1;
-        }
 
         if(gamepad2.b && !bPressed) {
             if(armWristPos == 0.5) armWristPos = 0;
@@ -221,6 +251,7 @@ public class _7610_TestTeleOp extends OpMode
         telemetry.addData("Intake", "Power: " + inPower);
         telemetry.addData("Outtake", "Power: " + outPower);
         telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
+        telemetry.addData("Ramp", "Position: " + rampPos);
     }
 
     /*
