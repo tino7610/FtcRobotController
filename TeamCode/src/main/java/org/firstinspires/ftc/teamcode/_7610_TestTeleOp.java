@@ -68,16 +68,16 @@ public class _7610_TestTeleOp extends OpMode
 
     //servos
     //private Servo ramp = null;
-    private Servo armElbow = null;
-    private Servo armWrist = null;
+    //private Servo armElbow = null;
+    //private Servo armWrist = null;
 
     //private double rampPos = 0;
-    private boolean aPressed = false;
+    //private boolean aPressed = false;
 
-    private double armWristPos = 0;
-    private boolean bPressed = false;
+    //private double armWristPos = 0;
+    //private boolean bPressed = false;
 
-    private double armElbowPos = 0;
+    //private double armElbowPos = 0;
 
     //Outtake Variables
 
@@ -116,8 +116,8 @@ public class _7610_TestTeleOp extends OpMode
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
         //ramp = hardwareMap.get(Servo.class, "Ramp");
-        armElbow = hardwareMap.get(Servo.class, "armElbow");
-        armWrist = hardwareMap.get(Servo.class, "armWrist");
+        //armElbow = hardwareMap.get(Servo.class, "armElbow");
+        //armWrist = hardwareMap.get(Servo.class, "armWrist");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -268,8 +268,8 @@ public class _7610_TestTeleOp extends OpMode
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
         //ramp.setPosition(rampPos);
-        armWrist.setPosition(armWristPos);
-        armElbow.setPosition(armElbowPos);
+        //armWrist.setPosition(armWristPos);
+        //armElbow.setPosition(armElbowPos);
         intake.setPower(inPower);
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
