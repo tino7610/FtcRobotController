@@ -67,11 +67,11 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor cBelt = null;
 
     //servos
-    private Servo ramp = null;
+    //private Servo ramp = null;
     private Servo armElbow = null;
     private Servo armWrist = null;
 
-    private double rampPos = 0;
+    //private double rampPos = 0;
     private boolean aPressed = false;
 
     private double armWristPos = 0;
@@ -267,7 +267,7 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
-        ramp.setPosition(rampPos);
+        //ramp.setPosition(rampPos);
         armWrist.setPosition(armWristPos);
         armElbow.setPosition(armElbowPos);
         intake.setPower(inPower);
