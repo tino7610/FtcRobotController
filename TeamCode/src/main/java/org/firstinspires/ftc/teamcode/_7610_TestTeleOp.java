@@ -115,7 +115,7 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        ramp = hardwareMap.get(Servo.class, "Ramp");
+        //ramp = hardwareMap.get(Servo.class, "Ramp");
         armElbow = hardwareMap.get(Servo.class, "armElbow");
         armWrist = hardwareMap.get(Servo.class, "armWrist");
 
