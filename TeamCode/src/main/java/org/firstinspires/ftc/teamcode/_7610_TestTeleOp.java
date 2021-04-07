@@ -67,17 +67,26 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor cBelt = null;
 
     //servos
-    private Servo ramp = null;
+    //private Servo ramp = null;
     private Servo armElbow = null;
     private Servo armWrist = null;
 
-    private double rampPos = 0;
+    //private double rampPos = 0;
     private boolean aPressed = false;
 
     private double armWristPos = 0;
     private boolean bPressed = false;
 
-    private double armElbowPos = 0; /*
+    private double armElbowPos = 0;
+
+    //Outtake Variables
+
+    private long startTime;
+
+    private boolean rBumperPressed = false;
+    private double time = 0.0;
+    /*
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -89,6 +98,15 @@ public class _7610_TestTeleOp extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+
+        // Tell the driver that initialization is complete.
+        telemetry.addData("Status", "Initialized");
+
+        // Tell the driver that initialization is complete.
+        telemetry.addData("Status", "Initialized");
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
         fLDrive  = hardwareMap.get(DcMotor.class, "LeftFront");
         fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
@@ -97,7 +115,7 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        ramp = hardwareMap.get(Servo.class, "Ramp");
+        //ramp = hardwareMap.get(Servo.class, "Ramp");
         armElbow = hardwareMap.get(Servo.class, "armElbow");
         armWrist = hardwareMap.get(Servo.class, "armWrist");
 
@@ -151,8 +169,53 @@ public class _7610_TestTeleOp extends OpMode
         double y = -gamepad1.left_stick_y;
         double r = gamepad1.right_stick_x;
 
-
         if(gamepad1.left_bumper){
+            inPower = 0.5;
+            cBeltPower = 1.0;
+        } else {
+            inPower = 0.0;
+            cBeltPower = 0.0;
+        }
+
+        outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // setting motor powers
+        if(gamepad1.right_bumper){
+
+            outPower = 0.0;
+
+            if(!rBumperPressed) {
+
+                rBumperPressed = true;
+                startTime = System.currentTimeMillis();
+                cBeltPower = -1.0;
+
+
+            }
+            else {
+
+                if(System.currentTimeMillis() < startTime + 500) cBeltPower = -1.0;
+                else {
+
+                    cBeltPower = 1.0;
+                    outPower = -1.0;
+
+                }
+
+            }
+
+        }
+
+        else {
+            outPower = 0.0;
+            cBeltPower = 0.0;
+            rBumperPressed = false;
+        }
+
+
+
+
+
+        /*if(gamepad1.left_bumper){
             inPower = 0.5;
         } else {
             inPower = 0.0;
@@ -168,7 +231,7 @@ public class _7610_TestTeleOp extends OpMode
             cBeltPower = 1.0;
         } else {
             cBeltPower = 0.0;
-        }
+        } */
 
 
         /*if(gamepad1.a && !aPressed) {
@@ -204,7 +267,7 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
-        ramp.setPosition(rampPos);
+        //ramp.setPosition(rampPos);
         armWrist.setPosition(armWristPos);
         armElbow.setPosition(armElbowPos);
         intake.setPower(inPower);
