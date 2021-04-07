@@ -67,7 +67,7 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor cBelt = null;
 
     //servos
-    private Servo ramp = null;
+    /*private Servo ramp = null;
     private Servo armElbow = null;
     private Servo armWrist = null;
 
@@ -75,13 +75,15 @@ public class _7610_TestTeleOp extends OpMode
     private double rampPos = 0;
     private boolean aPressed = false;
 
+     */
+
     //outtake
     private long startTime;
     private boolean rBumperPressed = false;
     private double time = 0.0;
 
     //wrist
-    private double armWristPos = 0;
+    /*private double armWristPos = 0;
     private boolean bPressed = false;
 
     //elbow
@@ -105,9 +107,10 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        ramp = hardwareMap.get(Servo.class, "Ramp");
+        /*ramp = hardwareMap.get(Servo.class, "Ramp");
         armElbow = hardwareMap.get(Servo.class, "armElbow");
         armWrist = hardwareMap.get(Servo.class, "armWrist");
+         */
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -201,7 +204,7 @@ public class _7610_TestTeleOp extends OpMode
             rBumperPressed = false;
         }
 
-        if(gamepad1.a && rampPos == 0) {
+        /*if(gamepad1.a && rampPos == 0) {
             rampPos = 1;
         }
 
@@ -234,9 +237,10 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
-        ramp.setPosition(rampPos);
+        /*ramp.setPosition(rampPos);
         armWrist.setPosition(armWristPos);
         armElbow.setPosition(armElbowPos);
+         */
         intake.setPower(inPower);
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
@@ -251,7 +255,7 @@ public class _7610_TestTeleOp extends OpMode
         telemetry.addData("Intake", "Power: " + inPower);
         telemetry.addData("Outtake", "Power: " + outPower);
         telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
-        telemetry.addData("Ramp", "Position: " + rampPos);
+        //telemetry.addData("Ramp", "Position: " + rampPos);
     }
 
     /*
