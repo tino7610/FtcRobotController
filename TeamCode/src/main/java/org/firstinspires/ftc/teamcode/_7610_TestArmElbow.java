@@ -136,11 +136,31 @@ public class _7610_TestArmElbow extends OpMode
             armElbowPos += 0.05;
         }*/
 
-        voltageReading = analog.getVoltage();
+        //voltageReading = analog.getVoltage();
+
+        if(gamepad2.x) {
+            voltageReading = 0.369;
+            armAngleDegrees = (potentiometerMaxAngle/3.3) * voltageReading;
+            armElbowPos = (armAngleDegrees/360);
+        }
+
+        if(gamepad2.a) {
+            voltageReading = 1.079;
+            armAngleDegrees = (potentiometerMaxAngle/3.3) * voltageReading;
+            armElbowPos = (armAngleDegrees/360);
+        }
+        //
+        if(gamepad2.b) {
+            voltageReading = 2.25;
+            armAngleDegrees = (potentiometerMaxAngle/3.3) * voltageReading;
+            armElbowPos = (armAngleDegrees/360);
+        }
 
         armAngleDegrees = (potentiometerMaxAngle/3.3) * voltageReading;
 
-        armElbowPos = (armAngleDegrees/180);
+        armElbowPos = (armAngleDegrees/360);
+
+        //armElbowPos.setPower()
 
         // Show the elapsed game time and wheel power.
         //armElbow.setPosition(armElbowPos);
