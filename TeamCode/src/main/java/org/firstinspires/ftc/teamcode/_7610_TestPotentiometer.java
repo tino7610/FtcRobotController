@@ -29,14 +29,10 @@ package org.firstinspires.ftc.teamcode;
  */
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -54,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Test ArmElbow", group="Iterative Opmode")
+@TeleOp(name="Test Potentiometer", group="Iterative Opmode")
 //@Disabled
-public class _7610_TestArmElbow extends OpMode
+public class _7610_TestPotentiometer extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -68,15 +64,9 @@ public class _7610_TestArmElbow extends OpMode
 
     //servos
 
-    private CRServo armElbow = null;
+    private CRServo servo = null;
 
-    private double armElbowPos = 0;
-
-    private double voltageReading = 0;
-
-    private double potentiometerMaxAngle = 270;
-
-    private double armAngleDegrees = 0;
+    private double voltageReading;
 
 
     /*
@@ -89,7 +79,7 @@ public class _7610_TestArmElbow extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        armElbow = hardwareMap.get(CRServo.class, "wobbleservo");
+        servo = hardwareMap.get(CRServo.class, "wobbleservo");
         analog = hardwareMap.get(AnalogInput.class, "wobblepot");
 
         // Tell the driver that initialization is complete.
@@ -117,49 +107,18 @@ public class _7610_TestArmElbow extends OpMode
     @Override
     public void loop() {
 
-        // Setup a variable for each drive wheel to save power level for telemetry
-
-        // Choose to drive using either Tank Mode, or POV Mode
-        // Comment out the method that's not used.  The default below is POV.
-
-        // POV Mode uses left stick to go forward, and right stick to turn.
-        // - This uses basic math to combine motions and is easier to drive straight.
-
-        /* double y = gamepad2.left_stick_y;
-
-        if (y > 0.0)
-            armElbowPos += 0.1;
-        else if (y < 0.0)
-            armElbowPos -= 0.1;
-
-        /*if(gamepad2.a) {
-            armElbowPos += 0.05;
-        }*/
-
-        //voltageReading = analog.getVoltage();
-
-        double elbowPower;
-
-        if ((analog.getVoltage() >= 0.369 && gamepad2.left_stick_y < 0) || (analog.getVoltage() <= 1.079 && gamepad2.left_stick_y > 0))
-            elbowPower = Range.clip(gamepad2.left_stick_y, -0.5, 0.5);
-        else elbowPower = 0;
-
-        //armElbowPos.setPower()
-
-        armElbow.setPower(elbowPower);
-
-        // Show the elapsed game time and wheel power.
-        //armElbow.setPosition(armElbowPos);
+        voltageReading = analog.getVoltage();
 
         telemetry.addData("Voltage Reading: ", voltageReading);
-        telemetry.addData("Elbow ", "Power: " + elbowPower);
-    }
 
+
+    }
     /*
      * Code to run ONCE after the driver hits STOP
      */
     @Override
     public void stop() {
+
     }
 
 }
