@@ -136,7 +136,7 @@ public class _7610_TestArmElbow extends OpMode
             armElbowPos += 0.05;
         }*/
 
-        //voltageReading = analog.getVoltage();
+        voltageReading = analog.getVoltage();
 
         double elbowPower;
 
