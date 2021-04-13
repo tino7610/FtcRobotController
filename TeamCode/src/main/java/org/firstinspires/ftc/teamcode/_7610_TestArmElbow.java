@@ -140,7 +140,7 @@ public class _7610_TestArmElbow extends OpMode
 
         double elbowPower;
 
-        if ((analog.getVoltage() >= 0.369 && gamepad2.left_stick_y < 0) || (analog.getVoltage() <= 1.079 && gamepad2.left_stick_y > 0))
+        if ((analog.getVoltage() >= 0.84 && gamepad2.left_stick_y < 0) || (analog.getVoltage() <= 1.079 && gamepad2.left_stick_y > 0))
             elbowPower = Range.clip(gamepad2.left_stick_y, -0.5, 0.5);
         else elbowPower = 0;
 
