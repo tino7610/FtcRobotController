@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -68,9 +69,9 @@ public class _7610_TestContServo extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        armElbow.setDirection(DcMotor.Direction.FORWARD);
+        armElbow.setDirection(DcMotor.Direction.REVERSE);
         armElbow.setPower(0.5);
-        sleep(1000);
+        sleep(2000);
         armElbow.setPower(0);
 
     }
