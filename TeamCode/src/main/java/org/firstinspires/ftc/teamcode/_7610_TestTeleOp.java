@@ -58,7 +58,7 @@ import com.qualcomm.robotcore.util.Range;
 //@Disabled
 public class _7610_TestTeleOp extends OpMode
 {
-    // Declare OpMode members.
+
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor fLDrive = null;
     private DcMotor fRDrive = null;
@@ -68,6 +68,8 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor outtake = null;
     private DcMotor cBelt = null;
 
+    private double voltageReading = 0;
+
     //servos
     //private CRServo ramp = null;
     //private Servo ramp = null;
@@ -75,6 +77,7 @@ public class _7610_TestTeleOp extends OpMode
     //private CRServo armWrist = null;
     //private Servo armWrist = null;
     private AnalogInput analog;
+
 
     //ramp
     //private double rampPos = 0;
@@ -179,6 +182,7 @@ public class _7610_TestTeleOp extends OpMode
             inPower = 0.0;
         }
 
+        //shootingCode
         outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // setting motor powers
         if(gamepad1.right_bumper){
@@ -230,10 +234,14 @@ public class _7610_TestTeleOp extends OpMode
             bPressed = true;
         }
 */
-        if ((analog.getVoltage() >= 0.369 && gamepad2.left_stick_y < 0) || (analog.getVoltage() <= 1.079 && gamepad2.left_stick_y > 0))
-            elbowPower = Range.clip(gamepad2.left_stick_y, -0.5, 0.5);
+        //armCode
+        voltageReading = analog.getVoltage();
+
+        if ((analog.getVoltage() >= 0.369 && gamepad2.left_stick_y < 0) || (analog.getVoltage() <= 2.25 && gamepad2.left_stick_y > 0))
+            elbowPower = Range.clip(gamepad2.left_stick_y, -1.0, 1.0);
         else elbowPower = 0;
 
+        //driveCode
         fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
         fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
         bLPower   = Range.clip(y - x + r, -0.5, 0.5) ;
