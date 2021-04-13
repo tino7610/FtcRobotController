@@ -32,6 +32,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -67,15 +69,17 @@ public class _7610_TestTeleOp extends OpMode
     private DcMotor cBelt = null;
 
     //servos
-    /*private Servo ramp = null;
-    private Servo armElbow = null;
-    private Servo armWrist = null;
+    //private CRServo ramp = null;
+    //private Servo ramp = null;
+    private CRServo armElbow = null;
+    //private CRServo armWrist = null;
+    //private Servo armWrist = null;
+    private AnalogInput analog;
 
     //ramp
-    private double rampPos = 0;
-    private boolean aPressed = false;
+    //private double rampPos = 0;
+    //private boolean aPressed = false;
 
-     */
 
     //outtake
     private long startTime;
@@ -107,10 +111,12 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        /*ramp = hardwareMap.get(Servo.class, "Ramp");
-        armElbow = hardwareMap.get(Servo.class, "armElbow");
-        armWrist = hardwareMap.get(Servo.class, "armWrist");
-         */
+        //ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WILLIAMS WHAT THIS IS NAMED
+        armElbow = hardwareMap.get(CRServo.class, "wobbleservo");
+        //armWrist = hardwareMap.get(CRServo.class, "armWrist");
+
+        analog = hardwareMap.get(AnalogInput.class, "wobblepot");
+
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -152,6 +158,8 @@ public class _7610_TestTeleOp extends OpMode
         double inPower;
         double outPower;
         double cBeltPower;
+
+        double elbowPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -221,11 +229,10 @@ public class _7610_TestTeleOp extends OpMode
             else if (armWristPos == 0) armWristPos = 0.5;
             bPressed = true;
         }
-
-        if(gamepad2.a && armElbowPos == 0) {
-            armElbowPos = 1;
-        }
 */
+        if ((analog.getVoltage() >= 0.369 && gamepad2.left_stick_y < 0) || (analog.getVoltage() <= 1.079 && gamepad2.left_stick_y > 0))
+            elbowPower = Range.clip(gamepad2.left_stick_y, -0.5, 0.5);
+        else elbowPower = 0;
 
         fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
         fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
@@ -237,6 +244,7 @@ public class _7610_TestTeleOp extends OpMode
         fRDrive.setPower(fRPower);
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
+        armElbow.setPower(elbowPower);
         /*ramp.setPosition(rampPos);
         armWrist.setPosition(armWristPos);
         armElbow.setPosition(armElbowPos);
@@ -255,6 +263,9 @@ public class _7610_TestTeleOp extends OpMode
         telemetry.addData("Intake", "Power: " + inPower);
         telemetry.addData("Outtake", "Power: " + outPower);
         telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
+        telemetry.addData("Voltage Reading: ", analog.getVoltage());
+        telemetry.addData("Elbow ", "Power: " + elbowPower);
+        //need telemetry for others
         //telemetry.addData("Ramp", "Position: " + rampPos);
     }
 

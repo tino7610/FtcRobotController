@@ -98,39 +98,45 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        fLDrive.setTargetPosition(-18 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(18 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(18 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(-18 * (int)ticksPerInch);
 
-        //Starting robot from the left-most start line
+        //pick up wobble goal with arm
 
-        //For going to the first target zone (closest)
+        fLDrive.setTargetPosition(-3 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(3 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(3 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(-3 * (int)ticksPerInch);
 
+
+        //Starting robot from the right-most start line in front of starter stack
+        //if # objects == 0 rings
+        //For going to the target zone A
+        fLDrive.setTargetPosition(36 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(36 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(36 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(36 * (int)ticksPerInch);
+
+        //if # objects == 1 ring
+        //For going to target zone B
         fLDrive.setTargetPosition(60 * (int)ticksPerInch);
         fRDrive.setTargetPosition(60 * (int)ticksPerInch);
         bLDrive.setTargetPosition(60 * (int)ticksPerInch);
         bRDrive.setTargetPosition(60 * (int)ticksPerInch);
 
-        fLDrive.setTargetPosition(-24 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(24 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(24 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(-24 * (int)ticksPerInch);
+        fLDrive.setTargetPosition(24 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(-24 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(-24 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(24 * (int)ticksPerInch);
 
-        //For going to the second target zone (middle) (the one straight ahead of the robot start line)
-
+        //if # objects == 2 rings
+        //For going to target zone C
         fLDrive.setTargetPosition(84 * (int)ticksPerInch);
         fRDrive.setTargetPosition(84 * (int)ticksPerInch);
         bLDrive.setTargetPosition(84 * (int)ticksPerInch);
         bRDrive.setTargetPosition(84 * (int)ticksPerInch);
-
-        //For going to the third target zone (farthest one)
-
-        fLDrive.setTargetPosition(108 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(108 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(108 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(108 * (int)ticksPerInch);
-
-        fLDrive.setTargetPosition(-24 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(24 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(24 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(-24 * (int)ticksPerInch);
 
         fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -142,36 +148,38 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setPower(0.5);
         bRDrive.setPower(0.5);
 
+        //drop wobble goal into target zone
+
         //Returning back to start line to park robot
+
+        //Coming back from target zone A
+        fLDrive.setTargetPosition(-36 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(-36 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(-36 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(-36 * (int)ticksPerInch);
+
+        //Coming back from target zone B
+        fLDrive.setTargetPosition(-24 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(24 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(24 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(-24 * (int)ticksPerInch);
 
         fLDrive.setTargetPosition(-60 * (int)ticksPerInch);
         fRDrive.setTargetPosition(-60 * (int)ticksPerInch);
         bLDrive.setTargetPosition(-60 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-60 * (int)ticksPerInch);
 
-        fLDrive.setTargetPosition(24 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(-24 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(-24 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(24 * (int)ticksPerInch);
-
-        //Coming back from second target zone (middle) (the one straight ahead of the robot start line)
-
+        //Coming back from target zone C
         fLDrive.setTargetPosition(-84 * (int)ticksPerInch);
         fRDrive.setTargetPosition(-84 * (int)ticksPerInch);
         bLDrive.setTargetPosition(-84 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-84 * (int)ticksPerInch);
 
-        //Coming back from third target zone (farthest one)
-
-        fLDrive.setTargetPosition(-108 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(-108 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(-108 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(-108 * (int)ticksPerInch);
-
-        fLDrive.setTargetPosition(24 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(-24 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(-24 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(24 * (int)ticksPerInch);
+        //regardless of where robot is returning from
+        fLDrive.setTargetPosition(3 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(-3 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(-3 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(3 * (int)ticksPerInch);
 
         while(fLDrive.isBusy()) {
 
