@@ -127,9 +127,6 @@ public class SensorColor extends LinearOpMode {
     // for an explanation of HSV color.
     final float[] hsvValues = new float[3];
 
-    // xButtonPreviouslyPressed and xButtonCurrentlyPressed keep track of the previous and current
-    // state of the X button on the gamepad
-    boolean xButtonPreviouslyPressed = false;
     boolean xButtonCurrentlyPressed = false;
 
     // Get a reference to our sensor object. It's recommended to use NormalizedColorSensor over

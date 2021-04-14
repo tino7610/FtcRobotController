@@ -33,8 +33,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -62,7 +65,10 @@ public class _7610_TestAutonomous extends LinearOpMode {
     private DcMotor fRDrive = null;
     private DcMotor bLDrive = null;
     private DcMotor bRDrive = null;
-    private DcMotor intake = null;
+
+    private CRServo armElbow = null;
+    private Servo armWrist = null;
+    private AnalogInput analog;
 
     private double ticksPerRevolution = 28 * 40 / 2.6; //28 ticks for motor, x40 for gearbox, 10:26 gear ratio so /2.6
     private double ticksPerInch = ticksPerRevolution / (4 * Math.PI); //four-inch diameter
@@ -79,6 +85,11 @@ public class _7610_TestAutonomous extends LinearOpMode {
         fRDrive = hardwareMap.get(DcMotor.class, "RightFront");
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
+
+        armElbow = hardwareMap.get(CRServo.class, "wobbleservo");
+        armWrist = hardwareMap.get(Servo.class, "armWrist");
+
+        analog = hardwareMap.get(AnalogInput.class, "wobblepot");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -103,13 +114,75 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setTargetPosition(18 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-18 * (int)ticksPerInch);
 
-        //pick up wobble goal with arm
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armWrist.setPosition(0.5);
+
+        while (analog.getVoltage() > 0.369) armElbow.setPower(0.5);
+        armElbow.setPower(0);
+
+        armWrist.setPosition(0.0);
 
         fLDrive.setTargetPosition(-3 * (int)ticksPerInch);
         fRDrive.setTargetPosition(3 * (int)ticksPerInch);
         bLDrive.setTargetPosition(3 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-3 * (int)ticksPerInch);
 
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Starting robot from the right-most start line in front of starter stack
         //if # objects == 0 rings
@@ -119,6 +192,35 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setTargetPosition(36 * (int)ticksPerInch);
         bRDrive.setTargetPosition(36 * (int)ticksPerInch);
 
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         //if # objects == 1 ring
         //For going to target zone B
         fLDrive.setTargetPosition(60 * (int)ticksPerInch);
@@ -126,10 +228,68 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setTargetPosition(60 * (int)ticksPerInch);
         bRDrive.setTargetPosition(60 * (int)ticksPerInch);
 
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         fLDrive.setTargetPosition(24 * (int)ticksPerInch);
         fRDrive.setTargetPosition(-24 * (int)ticksPerInch);
         bLDrive.setTargetPosition(-24 * (int)ticksPerInch);
         bRDrive.setTargetPosition(24 * (int)ticksPerInch);
+
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //if # objects == 2 rings
         //For going to target zone C
@@ -137,6 +297,7 @@ public class _7610_TestAutonomous extends LinearOpMode {
         fRDrive.setTargetPosition(84 * (int)ticksPerInch);
         bLDrive.setTargetPosition(84 * (int)ticksPerInch);
         bRDrive.setTargetPosition(84 * (int)ticksPerInch);
+
 
         fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -148,6 +309,11 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setPower(0.5);
         bRDrive.setPower(0.5);
 
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         //drop wobble goal into target zone
 
         //Returning back to start line to park robot
@@ -158,16 +324,103 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setTargetPosition(-36 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-36 * (int)ticksPerInch);
 
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         //Coming back from target zone B
         fLDrive.setTargetPosition(-24 * (int)ticksPerInch);
         fRDrive.setTargetPosition(24 * (int)ticksPerInch);
         bLDrive.setTargetPosition(24 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-24 * (int)ticksPerInch);
 
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         fLDrive.setTargetPosition(-60 * (int)ticksPerInch);
         fRDrive.setTargetPosition(-60 * (int)ticksPerInch);
         bLDrive.setTargetPosition(-60 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-60 * (int)ticksPerInch);
+
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Coming back from target zone C
         fLDrive.setTargetPosition(-84 * (int)ticksPerInch);
@@ -175,11 +428,50 @@ public class _7610_TestAutonomous extends LinearOpMode {
         bLDrive.setTargetPosition(-84 * (int)ticksPerInch);
         bRDrive.setTargetPosition(-84 * (int)ticksPerInch);
 
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         //regardless of where robot is returning from
         fLDrive.setTargetPosition(3 * (int)ticksPerInch);
         fRDrive.setTargetPosition(-3 * (int)ticksPerInch);
         bLDrive.setTargetPosition(-3 * (int)ticksPerInch);
         bRDrive.setTargetPosition(3 * (int)ticksPerInch);
+
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
 
         while(fLDrive.isBusy()) {
 

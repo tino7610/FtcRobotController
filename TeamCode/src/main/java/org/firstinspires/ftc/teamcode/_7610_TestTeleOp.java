@@ -74,8 +74,7 @@ public class _7610_TestTeleOp extends OpMode
     //private CRServo ramp = null;
     //private Servo ramp = null;
     private CRServo armElbow = null;
-    //private CRServo armWrist = null;
-    //private Servo armWrist = null;
+    private Servo armWrist = null;
     private AnalogInput analog;
 
 
@@ -90,11 +89,9 @@ public class _7610_TestTeleOp extends OpMode
     private double time = 0.0;
 
     //wrist
-    /*private double armWristPos = 0;
+    private double armWristPos = 0;
     private boolean bPressed = false;
 
-    //elbow
-    private double armElbowPos = 0; /*
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -116,7 +113,7 @@ public class _7610_TestTeleOp extends OpMode
 
         //ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WILLIAMS WHAT THIS IS NAMED
         armElbow = hardwareMap.get(CRServo.class, "wobbleservo");
-        //armWrist = hardwareMap.get(CRServo.class, "armWrist");
+        armWrist = hardwareMap.get(Servo.class, "armWrist");
 
         analog = hardwareMap.get(AnalogInput.class, "wobblepot");
 
@@ -228,11 +225,7 @@ public class _7610_TestTeleOp extends OpMode
         else if (!gamepad1.a) aPressed = false;
 
 
-        if(gamepad2.b && !bPressed) {
-            if(armWristPos == 0.5) armWristPos = 0;
-            else if (armWristPos == 0) armWristPos = 0.5;
-            bPressed = true;
-        }
+
 */
         //armCode
         voltageReading = analog.getVoltage();
@@ -241,11 +234,18 @@ public class _7610_TestTeleOp extends OpMode
             elbowPower = Range.clip(gamepad2.left_stick_y, -1.0, 1.0);
         else elbowPower = 0;
 
+        if(gamepad2.b && !bPressed) {
+            if(armWristPos == 0.5) armWristPos = 0;
+            else armWristPos = 0.5;
+            bPressed = true;
+        }
+        else if (!gamepad2.b) bPressed = false;
+
         //driveCode
-        fLPower   = Range.clip(y + x + r, -0.5, 0.5) ;
-        fRPower   = Range.clip(y - x - r, -0.5, 0.5) ;
-        bLPower   = Range.clip(y - x + r, -0.5, 0.5) ;
-        bRPower   = Range.clip(y + x - r, -0.5, 0.5) ;
+        fLPower   = Range.clip(y + x + 0.7 * r, -0.5, 0.5) ;
+        fRPower   = Range.clip(y - x - 0.7 * r, -0.5, 0.5) ;
+        bLPower   = Range.clip(y - x + 0.7 * r, -0.5, 0.5) ;
+        bRPower   = Range.clip(y + x - 0.7 * r, -0.5, 0.5) ;
 
         // Send calculated power to wheels
         fLDrive.setPower(fLPower);
@@ -253,9 +253,9 @@ public class _7610_TestTeleOp extends OpMode
         bLDrive.setPower(bLPower);
         bRDrive.setPower(bRPower);
         armElbow.setPower(elbowPower);
-        /*ramp.setPosition(rampPos);
         armWrist.setPosition(armWristPos);
-        armElbow.setPosition(armElbowPos);
+        /*ramp.setPosition(rampPos);
+
          */
         intake.setPower(inPower);
         outtake.setPower(outPower);
