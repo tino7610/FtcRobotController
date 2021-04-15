@@ -71,15 +71,13 @@ public class _7610_TestTeleOp extends OpMode
     private double voltageReading = 0;
 
     //servos
-    //private CRServo ramp = null;
-    //private Servo ramp = null;
+    private CRServo ramp = null;
     private CRServo armElbow = null;
     private Servo armWrist = null;
     private AnalogInput analog;
 
 
     //ramp
-    //private double rampPos = 0;
     //private boolean aPressed = false;
 
 
@@ -111,7 +109,7 @@ public class _7610_TestTeleOp extends OpMode
         outtake = hardwareMap.get(DcMotor.class, "shooter");
         cBelt = hardwareMap.get(DcMotor.class,"belt");
 
-        //ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WILLIAMS WHAT THIS IS NAMED
+        ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WILLIAMS WHAT THIS IS NAMED
         armElbow = hardwareMap.get(CRServo.class, "wobbleservo");
         armWrist = hardwareMap.get(Servo.class, "armWrist");
 
@@ -160,6 +158,7 @@ public class _7610_TestTeleOp extends OpMode
         double cBeltPower;
 
         double elbowPower;
+        double rampPower;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -227,6 +226,12 @@ public class _7610_TestTeleOp extends OpMode
 
 
 */
+
+        //ramp code because we don't have potentiometer values lol
+        if(gamepad1.a) rampPower = 0.5;
+        else if(gamepad1.b) rampPower = -0.5;
+        else rampPower = 0;
+
         //armCode
         voltageReading = analog.getVoltage();
 
@@ -254,9 +259,7 @@ public class _7610_TestTeleOp extends OpMode
         bRDrive.setPower(bRPower);
         armElbow.setPower(elbowPower);
         armWrist.setPosition(armWristPos);
-        /*ramp.setPosition(rampPos);
-
-         */
+        ramp.setPower(rampPower);
         intake.setPower(inPower);
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
