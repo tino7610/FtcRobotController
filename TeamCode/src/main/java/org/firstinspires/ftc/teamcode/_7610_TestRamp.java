@@ -81,7 +81,7 @@ public class _7610_TestRamp extends OpMode
 
         //ASK WHAT NAMES ARE
         ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WHAT THIS IS NAMED
-        analog = hardwareMap.get(AnalogInput.class, "ramppot");
+        analog = hardwareMap.get(AnalogInput.class, "ramppot"); 
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");

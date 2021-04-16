@@ -28,7 +28,7 @@ public class _7610_TestContServoRamp extends LinearOpMode {
         runtime.reset();
 
         ramp.setDirection(DcMotor.Direction.REVERSE);
-        ramp.setPower(0.5);
+        ramp.setPower(-1.0);
         sleep(2000);
         ramp.setPower(0);
 
