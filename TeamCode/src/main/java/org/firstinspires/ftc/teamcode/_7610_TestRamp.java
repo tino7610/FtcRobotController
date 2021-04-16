@@ -127,10 +127,10 @@ public class _7610_TestRamp extends OpMode
 
         voltageReading = analog.getVoltage();
 
-        /* double rampPower;
+        double rampPower;
 
         //ramp code because we don't have potentiometer values lol
-        if(gamepad1.a) {
+        /*if(gamepad1.a) {
             rampPower = 0.5;
         }
         else if(gamepad1.b) {
@@ -144,7 +144,7 @@ public class _7610_TestRamp extends OpMode
 
          */
 
-        /* if ((analog.getVoltage() >= 0.369 && gamepad1.right_stick_y < 0) || (analog.getVoltage() <= 2.25 && gamepad1.right_stick_y > 0))
+        if ((analog.getVoltage() >= 0.68 && gamepad1.right_stick_y < 0) || (analog.getVoltage() <= 0.135 && gamepad1.right_stick_y > 0))
             rampPower = Range.clip(gamepad1.right_stick_y, -1, 1);
         else rampPower = 0;
          */
