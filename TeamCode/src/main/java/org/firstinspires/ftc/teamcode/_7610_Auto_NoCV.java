@@ -86,8 +86,8 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         bLDrive  = hardwareMap.get(DcMotor.class, "LeftRear");
         bRDrive = hardwareMap.get(DcMotor.class, "RightRear");
 
-        //colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
-        //colorSensor.setGain(2);
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "ColorSensorLeft");
+        colorSensor.setGain(2);
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -141,7 +141,7 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        /*
+
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), matHSV);
         Color.colorToHSV(colors.toColor(), current);
@@ -166,7 +166,42 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         fLDrive.setPower(0.0);
         fRDrive.setPower(0.0);
         bLDrive.setPower(0.0);
-        bRDrive.setPower(0.0);*/
+        bRDrive.setPower(0.0);
+
+        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        fLDrive.setTargetPosition(3 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(3 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(3 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(3 * (int)ticksPerInch);
+
+        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fLDrive.setPower(0.5);
+        fRDrive.setPower(0.5);
+        bLDrive.setPower(0.5);
+        bRDrive.setPower(0.5);
+
+        while(fLDrive.isBusy()) {
+
+            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
+            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
+            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
+            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
+
+        }
+
+
+        fLDrive.setPower(0.0);
+        fRDrive.setPower(0.0);
+        bLDrive.setPower(0.0);
+        bRDrive.setPower(0.0);
 
         fLDrive.setTargetPosition(72 * (int)ticksPerInch);
         fRDrive.setTargetPosition(72 * (int)ticksPerInch);
