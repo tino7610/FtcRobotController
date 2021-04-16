@@ -142,7 +142,7 @@ public class _7610_TestRamp extends OpMode
 
          */
 
-        if ((analog.getVoltage() <= 0.58 && gamepad1.right_stick_y > 0) || (analog.getVoltage() >= 0.235 && gamepad1.right_stick_y < 0))
+        if ((analog.getVoltage() <= 0.68 && gamepad2.right_stick_y > 0) || (analog.getVoltage() >= 0.135 && gamepad2.right_stick_y < 0))
             rampPower = Range.clip(gamepad1.right_stick_y, -1, 1);
         else rampPower = 0;
 
