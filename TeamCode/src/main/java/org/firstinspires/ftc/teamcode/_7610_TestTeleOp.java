@@ -115,7 +115,7 @@ public class _7610_TestTeleOp extends OpMode
         armWrist = hardwareMap.get(Servo.class, "armWrist");
 
         analog = hardwareMap.get(AnalogInput.class, "wobblepot");
-        analog2 = hardwareMap.get(AnalogInput.class, "wobblepot");
+        analog2 = hardwareMap.get(AnalogInput.class, "ramppot");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -216,7 +216,7 @@ public class _7610_TestTeleOp extends OpMode
 
         //ramp code because we don't have potentiometer values lol
         if ((analog2.getVoltage() <= 0.58 && gamepad2.right_stick_y > 0) || (analog2.getVoltage() >= 0.235 && gamepad1.right_stick_y < 0))
-            rampPower = Range.clip(gamepad2.right_stick_y, -1, 1);
+            rampPower = Range.clip(gamepad2.right_stick_y, -1.0, 1.0);
         else rampPower = 0;
 
 
