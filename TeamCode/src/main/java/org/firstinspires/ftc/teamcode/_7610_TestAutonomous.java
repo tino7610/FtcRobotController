@@ -571,6 +571,7 @@ public class _7610_TestAutonomous extends LinearOpMode {
         fRDrive.setTargetPosition(-1440);
         bLDrive.setTargetPosition(-1440);
         bRDrive.setTargetPosition(1440);
+        //move to right
 
         fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
