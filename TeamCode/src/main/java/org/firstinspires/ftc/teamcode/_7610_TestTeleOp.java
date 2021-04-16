@@ -75,6 +75,7 @@ public class _7610_TestTeleOp extends OpMode
     private CRServo armElbow = null;
     private Servo armWrist = null;
     private AnalogInput analog;
+    private AnalogInput analog2;
 
 
     //ramp
@@ -114,7 +115,7 @@ public class _7610_TestTeleOp extends OpMode
         armWrist = hardwareMap.get(Servo.class, "armWrist");
 
         analog = hardwareMap.get(AnalogInput.class, "wobblepot");
-
+        analog2 = hardwareMap.get(AnalogInput.class, "wobblepot");
 
         fLDrive.setDirection(DcMotor.Direction.REVERSE);
         fRDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -212,25 +213,13 @@ public class _7610_TestTeleOp extends OpMode
             rBumperPressed = false;
         }
 
-        /*if(gamepad1.a && rampPos == 0) {
-            rampPos = 1;
-        }
-
-        /*if(gamepad1.a && !aPressed) {
-            if(rampPos == 1) rampPos = 0;
-            else if (rampPos == 0) rampPos = 1;
-            aPressed = true;
-        }
-        else if (!gamepad1.a) aPressed = false;
-
-
-
-*/
 
         //ramp code because we don't have potentiometer values lol
-        if(gamepad1.a) rampPower = 0.5;
-        else if(gamepad1.b) rampPower = -0.5;
+        if ((analog2.getVoltage() <= 0.58 && gamepad2.right_stick_y > 0) || (analog2.getVoltage() >= 0.235 && gamepad1.right_stick_y < 0))
+            rampPower = Range.clip(gamepad2.right_stick_y, -1, 1);
         else rampPower = 0;
+
+
 
         //armCode
         voltageReading = analog.getVoltage();
@@ -263,6 +252,7 @@ public class _7610_TestTeleOp extends OpMode
         intake.setPower(inPower);
         outtake.setPower(outPower);
         cBelt.setPower(cBeltPower);
+        ramp.setPower(rampPower);
 
 
         // Show the elapsed game time and wheel power.

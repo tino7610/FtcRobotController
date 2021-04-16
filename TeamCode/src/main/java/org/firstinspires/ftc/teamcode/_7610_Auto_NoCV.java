@@ -107,46 +107,11 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        fLDrive.setTargetPosition(-12 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(12 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(12 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(-12 * (int)ticksPerInch);
-
-        fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        bLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        bRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        fLDrive.setPower(0.5);
-        fRDrive.setPower(0.5);
-        bLDrive.setPower(0.5);
-        bRDrive.setPower(0.5);
-
-        while(fLDrive.isBusy()) {
-
-            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
-            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
-            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
-            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
-
-        }
-
-        fLDrive.setPower(0.0);
-        fRDrive.setPower(0.0);
-        bLDrive.setPower(0.0);
-        bRDrive.setPower(0.0);
-
-        fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), matHSV);
         Color.colorToHSV(colors.toColor(), current);
 
-        while (current[2] > matHSV[2] + 25) {
+        while (current[2] > matHSV[2] + 30) {
 
             fLDrive.setPower(0.5);
             fRDrive.setPower(0.5);
@@ -160,6 +125,11 @@ public class _7610_Auto_NoCV extends LinearOpMode {
 
             colors = colorSensor.getNormalizedColors();
             Color.colorToHSV(colors.toColor(), current);
+
+        }
+
+        while (fLDrive.isBusy()) {
+
 
         }
 
@@ -188,15 +158,10 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         bLDrive.setPower(0.5);
         bRDrive.setPower(0.5);
 
-        while(fLDrive.isBusy()) {
+        while (fLDrive.isBusy()) {
 
-            telemetry.addData("fLDrive", fLDrive.getCurrentPosition());
-            telemetry.addData("fRDrive", fRDrive.getCurrentPosition());
-            telemetry.addData("bLDrive", bLDrive.getCurrentPosition());
-            telemetry.addData("bRDrive", bRDrive.getCurrentPosition());
 
         }
-
 
         fLDrive.setPower(0.0);
         fRDrive.setPower(0.0);
