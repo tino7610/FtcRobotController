@@ -80,7 +80,7 @@ public class _7610_TestPotentiometer extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         servo = hardwareMap.get(CRServo.class, "wobbleservo");
-        analog = hardwareMap.get(AnalogInput.class, "wobblepot");
+        analog = hardwareMap.get(AnalogInput.class, "ramppot");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
