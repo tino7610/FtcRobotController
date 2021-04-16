@@ -107,10 +107,10 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        fLDrive.setTargetPosition(12 * (int)ticksPerInch);
-        fRDrive.setTargetPosition(-12 * (int)ticksPerInch);
-        bLDrive.setTargetPosition(-12 * (int)ticksPerInch);
-        bRDrive.setTargetPosition(12 * (int)ticksPerInch);
+        fLDrive.setTargetPosition(-12 * (int)ticksPerInch);
+        fRDrive.setTargetPosition(12 * (int)ticksPerInch);
+        bLDrive.setTargetPosition(12 * (int)ticksPerInch);
+        bRDrive.setTargetPosition(-12 * (int)ticksPerInch);
 
         fLDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         fRDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -203,6 +203,7 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         bLDrive.setPower(0.0);
         bRDrive.setPower(0.0);
 
+        /*
         fLDrive.setTargetPosition(72 * (int)ticksPerInch);
         fRDrive.setTargetPosition(72 * (int)ticksPerInch);
         bLDrive.setTargetPosition(72 * (int)ticksPerInch);
@@ -231,6 +232,8 @@ public class _7610_Auto_NoCV extends LinearOpMode {
         fRDrive.setPower(0.0);
         bLDrive.setPower(0.0);
         bRDrive.setPower(0.0);
+        */
+
 
 
 
