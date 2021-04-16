@@ -80,7 +80,7 @@ public class _7610_TestRamp extends OpMode
         // step (using the FTC Robot Controller app on the phone).
 
         //ASK WHAT NAMES ARE
-        ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WILLIAMS WHAT THIS IS NAMED
+        ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WHAT THIS IS NAMED
         analog = hardwareMap.get(AnalogInput.class, "ramppot");
 
         // Tell the driver that initialization is complete.
