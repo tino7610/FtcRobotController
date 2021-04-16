@@ -66,6 +66,8 @@ public class _7610_TestRamp extends OpMode
 
     private double rampPos = 0;
 
+    private double voltageReading = 0;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -77,7 +79,9 @@ public class _7610_TestRamp extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
 
-        ramp = hardwareMap.get(CRServo.class, "Ramp");
+        //ASK WHAT NAMES ARE
+        ramp = hardwareMap.get(CRServo.class, "Ramp"); //ASK WILLIAMS WHAT THIS IS NAMED
+        analog = hardwareMap.get(AnalogInput.class, "ramppot");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -111,14 +115,42 @@ public class _7610_TestRamp extends OpMode
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
 
-        if(gamepad1.a && rampPos == 0) {
+        /* if(gamepad1.a && rampPos == 0) {
             rampPos = 1;
         }
+         */
 
         // Send calculated power to wheels
         //ramp.setPosition(rampPos);
 
         // Show the elapsed game time and wheel power.
+
+        voltageReading = analog.getVoltage();
+
+        /* double rampPower;
+
+        //ramp code because we don't have potentiometer values lol
+        if(gamepad1.a) {
+            rampPower = 0.5;
+        }
+        else if(gamepad1.b) {
+            rampPower = -0.5;
+        }
+        else {
+            rampPower = 0;
+        }
+
+        ramp.setPower(rampPower);
+
+         */
+
+        /* if ((analog.getVoltage() >= 0.369 && gamepad1.right_stick_y < 0) || (analog.getVoltage() <= 2.25 && gamepad1.right_stick_y > 0))
+            rampPower = Range.clip(gamepad1.right_stick_y, -1, 1);
+        else rampPower = 0;
+         */
+
+        telemetry.addData("Ramp Voltage Reading: ", voltageReading);
+        //telemetry.addData("Ramp ", "Power: " + rampPower);
 
     }
 

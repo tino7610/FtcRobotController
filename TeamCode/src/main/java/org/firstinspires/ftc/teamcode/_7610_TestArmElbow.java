@@ -151,7 +151,7 @@ public class _7610_TestArmElbow extends OpMode
         // Show the elapsed game time and wheel power.
         //armElbow.setPosition(armElbowPos);
 
-        telemetry.addData("Voltage Reading: ", voltageReading);
+        telemetry.addData("Elbow Voltage Reading: ", voltageReading);
         telemetry.addData("Elbow ", "Power: " + elbowPower);
     }
 

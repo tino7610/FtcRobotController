@@ -120,6 +120,7 @@ public class _7610_TestAutonomousV2 extends LinearOpMode{
         // run until the end of the match (driver presses STOP)
 
         //move left in front of starter stack to shoot rings and identify how many rings are in stack
+
         fLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fRDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bLDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -141,6 +142,7 @@ public class _7610_TestAutonomousV2 extends LinearOpMode{
         bRDrive.setPower(0.5);
 
         //shoot the preloaded rings
+
         outtake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // setting motor powers
 
@@ -159,6 +161,7 @@ public class _7610_TestAutonomousV2 extends LinearOpMode{
             cBeltPower = 0.0;
 
         //move back to start line to pick up wobble goal
+
         while(fLDrive.isBusy()) {
 
             telemetry.addData("fLDrive", fLDrive.getCurrentPosition());

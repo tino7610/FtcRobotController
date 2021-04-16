@@ -276,6 +276,7 @@ public class _7610_TestTeleOp extends OpMode
         telemetry.addData("ConveyorBelt","Power:" + cBeltPower);
         telemetry.addData("Voltage Reading: ", analog.getVoltage());
         telemetry.addData("Elbow ", "Power: " + elbowPower);
+        telemetry.addData("Ramp ", "Power: " + rampPower);
         //need telemetry for others
         //telemetry.addData("Ramp", "Position: " + rampPos);
     }
