@@ -31,11 +31,13 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -57,9 +59,10 @@ public class _7610_TestRamp extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    private AnalogInput analog;
 
     //servos
-    private Servo ramp = null;
+    private CRServo ramp = null;
 
     private double rampPos = 0;
 
@@ -74,7 +77,7 @@ public class _7610_TestRamp extends OpMode
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
 
-        ramp = hardwareMap.get(Servo.class, "Ramp");
+        ramp = hardwareMap.get(CRServo.class, "Ramp");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -113,7 +116,7 @@ public class _7610_TestRamp extends OpMode
         }
 
         // Send calculated power to wheels
-        ramp.setPosition(rampPos);
+        //ramp.setPosition(rampPos);
 
         // Show the elapsed game time and wheel power.
 
